@@ -1,9 +1,16 @@
 
 assets.png
-size: 64,64
+size: 128,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+button
+  rotate: false
+  xy: 2, 36
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 player
   rotate: false
   xy: 2, 2

@@ -1,5 +1,6 @@
 package com.porkopolis.crawler.entitys.player;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -81,20 +82,8 @@ public class Player implements Entity {
 		}
 	}
 
-	public void moveForward(float delta) {
-
-	}
-
-	public void moveLeft(float delta) {
-
-	}
-
-	public void moveRight(float delta) {
-
-	}
-
-	public void moveBack(float delta) {
-
+	public void move(Vector2 vector) {
+		getBody().applyForce(vector, getBody().getWorldCenter(), true);
 	}
 
 }

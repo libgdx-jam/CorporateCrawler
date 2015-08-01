@@ -1,12 +1,17 @@
 package com.porkopolis.crawler.gui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin.TintedDrawable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.porkopolis.crawler.Assets;
 
 public class GUI {
 
@@ -20,6 +25,7 @@ public class GUI {
 	public GUI() {
 		stage = new Stage();
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		skin.addRegions(Assets.getAtlas());
 
 		/** Begin table */
 
@@ -29,17 +35,23 @@ public class GUI {
 
 		fpsLabel = new Label("fps" + fps, skin);
 
-		TextButton button = new TextButton("1", skin);
-		TextButton button2 = new TextButton("2", skin);
-		TextButton button3 = new TextButton("3", skin);
-		TextButton button4 = new TextButton("4", skin);
+		ImageButtonStyle imgBtnStyle = new ImageButtonStyle();
+		imgBtnStyle.up = skin.getDrawable("button");
+		imgBtnStyle.down = skin.getDrawable("button");
 
-		table.add(fpsLabel).expand(30, 10).align(Align.bottom).fill(0.8f, 0);
-		table.add(button).expand(30, 10).align(Align.bottom).fill(0.8f, 0);
-		table.add(button2).expand(30, 10).align(Align.bottom).fill(0.8f, 0);
-		table.add(button3).expand(30, 10).align(Align.bottom).fill(0.8f, 0);
-		table.add(button4).expand(30, 10).align(Align.bottom).fill(0.8f, 0);
-		table.add("").expand(30, 10).align(Align.bottom).fill(0.8f, 0);
+		ImageButton button = new ImageButton(imgBtnStyle);
+		ImageButton button2 = new ImageButton(imgBtnStyle);
+		ImageButton button3 = new ImageButton(imgBtnStyle);
+		ImageButton button4 = new ImageButton(imgBtnStyle);
+
+		table.defaults().fill(0.8f, 0f).expand(30, 20);
+
+		table.add(fpsLabel).align(Align.bottom);
+		table.add(button).align(Align.bottom);
+		table.add(button2).align(Align.bottom);
+		table.add(button3).align(Align.bottom);
+		table.add(button4).align(Align.bottom);
+		table.add("").align(Align.bottom);
 
 		/** End table */
 
@@ -54,7 +66,10 @@ public class GUI {
 		}
 		stage.act();
 		stage.draw();
-		fpsLabel.setText("fps: " + Gdx.graphics.getFramesPerSecond());
+		if (debug)
+			fpsLabel.setText("fps: " + Gdx.graphics.getFramesPerSecond());
+		else
+			fpsLabel.setText("      ");
 	}
 
 	public Stage getStage() {

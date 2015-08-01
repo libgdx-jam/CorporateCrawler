@@ -19,6 +19,8 @@ public class Assets implements Disposable {
 	public static AssetSquare square;
 	public static AssetPlayer player;
 
+	private static TextureAtlas atlas;
+
 	public static AssetManager getManager() {
 		if (manager == null) {
 			manager = new AssetManager();
@@ -40,7 +42,7 @@ public class Assets implements Disposable {
 	}
 
 	public static void create() {
-		TextureAtlas atlas = manager.get(TEXTURE_ATLAS_OBJECTS);
+		atlas = manager.get(TEXTURE_ATLAS_OBJECTS);
 		square = new AssetSquare(atlas);
 		player = new AssetPlayer(atlas);
 		skin = manager.get(SKIN);
@@ -68,4 +70,7 @@ public class Assets implements Disposable {
 		manager.dispose();
 	}
 
+	public static TextureAtlas getAtlas() {
+		return atlas;
+	}
 }
