@@ -1,6 +1,6 @@
 
 assets.png
-size: 256,128
+size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -69,14 +69,63 @@ legs06
   index: -1
 pistol
   rotate: false
-  xy: 68, 38
+  xy: 245, 98
   size: 57, 28
   orig: 57, 28
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 127, 34
+  xy: 245, 64
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponBrassKnuckels
+  rotate: false
+  xy: 304, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponbat
+  rotate: false
+  xy: 338, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponbatton
+  rotate: false
+  xy: 372, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponchainsaw
+  rotate: false
+  xy: 406, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponpistol
+  rotate: false
+  xy: 440, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponrifle
+  rotate: false
+  xy: 474, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+weaponshotgun
+  rotate: false
+  xy: 61, 28
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
