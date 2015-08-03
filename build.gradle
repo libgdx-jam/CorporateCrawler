@@ -20,7 +20,7 @@ allprojects {
         appName = 'CorporateCrawler'
         gdxVersion = '1.6.4'
         roboVMVersion = '1.5.0'
-        box2DLightsVersion = '1.5'
+        box2DLightsVersion = '1.5-SNAPSHOT'
         aiVersion = '1.5.0'
     }
 
