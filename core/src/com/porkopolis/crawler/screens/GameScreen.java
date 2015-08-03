@@ -94,7 +94,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 
 		if (Gdx.app.getType() == ApplicationType.Desktop) {
-			desktop.update();
+			desktop.update(delta);
 		}
 
 		camera.position.set(player.getBody().getPosition(), 0);

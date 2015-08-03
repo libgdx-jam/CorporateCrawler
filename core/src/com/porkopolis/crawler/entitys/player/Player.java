@@ -16,7 +16,7 @@ public class Player implements Entity {
 	private Vector2 position;
 	private Body body;
 	private float baseSpeed = 1f;
-	private float speed = 1f;
+	private float speed = 0f;
 	private float rotation = 0;
 
 	public Player(Vector2 startPosition, World world) {
@@ -43,7 +43,7 @@ public class Player implements Entity {
 
 	@Override
 	public void update(float delta) {
-
+		baseSpeed = baseSpeed * delta;
 	}
 
 	public Body getBody() {

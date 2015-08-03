@@ -26,7 +26,7 @@ public class DesktopInputHandler implements InputProcessor {
 	}
 
 	/** For polling */
-	public void update() {
+	public void update(float delta) {
 		// Begin debug
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 			gui.debug = !gui.debug;
@@ -34,17 +34,19 @@ public class DesktopInputHandler implements InputProcessor {
 
 		if (Gdx.input.isKeyJustPressed(Keys.G)) {
 			for (int i = 0; i < player.getBody().getFixtureList().size; i++) {
-				player.getBody()
-						.getFixtureList()
-						.get(i)
-						.setSensor(
-								!player.getBody().getFixtureList().get(i)
-										.isSensor());
+				player.getBody().getFixtureList().get(i).setSensor(!player.getBody().getFixtureList().get(i).isSensor());
 			}
 		}
 		// End debug
 
 		// Begin player controls
+		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+			player.setSpeed((player.getBaseSpeed() * 2));
+
+		} else {
+			player.setSpeed(player.getBaseSpeed());
+		}
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			player.move(new Vector2(0, player.getSpeed()));
 		}
@@ -61,21 +63,9 @@ public class DesktopInputHandler implements InputProcessor {
 
 		}
 
-		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-			player.setSpeed(player.getBaseSpeed() * 2);
-
-		} else {
-			player.setSpeed(player.getBaseSpeed());
-		}
-
-		// else {
-		// player.setSpeed(player.getBaseSpeed());
-		// }
-
 		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
 			player.getBody().applyForce(
-					new Vector2(MathUtils.cos(player.getRotation()),
-							MathUtils.sin(player.getRotation())),
+					new Vector2(MathUtils.cos(player.getRotation()), MathUtils.sin(player.getRotation())),
 					player.getBody().getWorldCenter(), true);
 		}
 
@@ -121,9 +111,8 @@ public class DesktopInputHandler implements InputProcessor {
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		Vector3 mouse = camera.unproject(new Vector3(screenX, screenY, 0));
-		player.setRotation(MathUtils.atan2(mouse.y
-				- player.getBody().getPosition().y, mouse.x
-				- player.getBody().getPosition().x));
+		player.setRotation(MathUtils.atan2(mouse.y - player.getBody().getPosition().y,
+				mouse.x - player.getBody().getPosition().x));
 		return false;
 	}
 
