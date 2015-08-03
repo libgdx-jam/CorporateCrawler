@@ -43,7 +43,7 @@ public class Player implements Entity {
 
 	@Override
 	public void update(float delta) {
-		baseSpeed = baseSpeed * delta;
+		
 	}
 
 	public Body getBody() {

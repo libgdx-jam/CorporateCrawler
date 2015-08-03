@@ -40,6 +40,10 @@ public class DesktopInputHandler implements InputProcessor {
 		// End debug
 
 		// Begin player controls
+		Vector3 mouse = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+		player.setRotation(MathUtils.atan2(mouse.y - player.getBody().getPosition().y,
+				mouse.x - player.getBody().getPosition().x));
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 			player.setSpeed((player.getBaseSpeed() * 2));
 
@@ -109,10 +113,7 @@ public class DesktopInputHandler implements InputProcessor {
 	}
 
 	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		Vector3 mouse = camera.unproject(new Vector3(screenX, screenY, 0));
-		player.setRotation(MathUtils.atan2(mouse.y - player.getBody().getPosition().y,
-				mouse.x - player.getBody().getPosition().x));
+	public boolean mouseMoved(int screenX, int screenY){
 		return false;
 	}
 

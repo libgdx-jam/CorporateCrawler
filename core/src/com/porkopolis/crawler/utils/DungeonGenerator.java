@@ -19,6 +19,7 @@ public class DungeonGenerator {
 		int newy = 0;
 		int ymod = 0;
 		int validTile = -1;
+		int currentFeatures = 0;
 
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
@@ -44,13 +45,13 @@ public class DungeonGenerator {
 		DungeonGenerator.makeRoom(dungeon.getxSize() / 2,
 				dungeon.getySize() / 2, 8, 6, MathUtils.random(0, 3));
 
-		int currentFeatures = 1;
+		currentFeatures = 1;
 
 		for (int countingTries = 0; countingTries < 1000; countingTries++) {
 			if (currentFeatures == dungeon.getObjects()) {
 				break;
 			}
-
+			
 			newx = 0;
 			xmod = 0;
 			newy = 0;
