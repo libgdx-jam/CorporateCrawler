@@ -52,8 +52,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		float w = 20;
-		float h = 15;
+		float w = 32;
+		float h = 20;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w, h);

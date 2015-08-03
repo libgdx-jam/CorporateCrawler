@@ -23,8 +23,8 @@ public class DesktopLauncher {
 		// }
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		// config.width = Constants.SCREEN_WIDTH;
-		// config.height = Constants.SCREEN_HEIGHT;
+		 config.width = 800;
+		 config.height = 480;
 		// config.vSyncEnabled = LauncherConstants.VSYNC;
 		new LwjglApplication(new Main(), config);
 	}
