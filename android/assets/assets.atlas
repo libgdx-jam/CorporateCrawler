@@ -1,19 +1,82 @@
 
 assets.png
-size: 128,128
+size: 256,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+body
+  rotate: false
+  xy: 2, 32
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
 button
   rotate: false
-  xy: 2, 36
+  xy: 2, 62
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-player
+hat
   rotate: false
   xy: 2, 2
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+legs01
+  rotate: false
+  xy: 68, 98
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+legs02
+  rotate: false
+  xy: 68, 68
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+legs03
+  rotate: false
+  xy: 127, 98
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+legs04
+  rotate: false
+  xy: 127, 68
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+legs05
+  rotate: false
+  xy: 186, 98
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+legs06
+  rotate: false
+  xy: 186, 68
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+pistol
+  rotate: false
+  xy: 68, 38
+  size: 57, 28
+  orig: 57, 28
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 127, 34
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

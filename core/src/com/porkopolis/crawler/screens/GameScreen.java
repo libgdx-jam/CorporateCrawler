@@ -52,8 +52,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		float w = 32;
-		float h = 20;
+		float w = 16;
+		float h = 10;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w, h);
@@ -117,7 +117,7 @@ public class GameScreen implements Screen {
 
 			batch.draw(Assets.player.reg,
 					player.getBody().getPosition().x - 0.5f, player.getBody()
-							.getPosition().y - 0.5f, 0.5f, 0.5f, 1, 1, 1, 1,
+							.getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f, 0.875f, 1, 1,
 					(player.getRotation()) * MathUtils.radDeg);
 			batch.end();
 		}

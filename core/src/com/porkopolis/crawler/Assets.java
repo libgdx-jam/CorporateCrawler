@@ -61,7 +61,15 @@ public class Assets implements Disposable {
 		public AtlasRegion reg;
 
 		public AssetPlayer(TextureAtlas atlas) {
-			reg = atlas.findRegion("player");
+			reg = atlas.findRegion("body");
+		}
+	}
+	
+	public static class AssetLegs {
+		public AtlasRegion reg;
+
+		public AssetLegs(TextureAtlas atlas) {
+			reg = atlas.findRegion("body");
 		}
 	}
 
