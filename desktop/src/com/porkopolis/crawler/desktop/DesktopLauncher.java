@@ -15,16 +15,17 @@ public class DesktopLauncher {
 		settings.maxHeight = 2048;
 		settings.debug = false;
 		try {
-			TexturePacker.process(settings, "assets-raw", "../android/assets",
-					"assets");
+			// TexturePacker.process(settings, "assets-raw", "../android/assets",
+			// 		"assets");
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 		// }
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		 config.width = 800;
 		 config.height = 480;
+		 config.disableAudio = true;
 		// config.vSyncEnabled = LauncherConstants.VSYNC;
 		new LwjglApplication(new Main(), config);
 	}

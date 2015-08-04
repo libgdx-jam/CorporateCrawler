@@ -71,13 +71,13 @@ public class GameScreen implements Screen {
 		world = new World(new Vector2(0, 0), true);
 
 		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, world);
-		player = new Player(dungeon.getRandomFree(), world);
+		player = new Player(new Vector2(50,50), world);
 		entityManager.getEntitys().add(player);
 
-		for (int x = 0; x < 100; x++) {
-			Vector2 c = dungeon.getRandomFree();
-			System.out.println(c.toString());
-		}
+		// for (int x = 0; x < 100; x++) {
+		// 	Vector2 c = dungeon.getRandomFree();
+		// 	System.out.println(c.toString());
+		// }
 
 		batch = new SpriteBatch(100);
 
