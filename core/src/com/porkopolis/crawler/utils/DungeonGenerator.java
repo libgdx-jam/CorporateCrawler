@@ -39,6 +39,7 @@ public class DungeonGenerator {
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
 				dungeon.setCollision(x, y, false);
+				dungeon.setFree(x, y, false);
 			}
 		}
 
@@ -51,7 +52,7 @@ public class DungeonGenerator {
 			if (currentFeatures == dungeon.getObjects()) {
 				break;
 			}
-			
+
 			newx = 0;
 			xmod = 0;
 			newy = 0;
@@ -327,8 +328,11 @@ public class DungeonGenerator {
 					} else if (ytemp == (y + (ylen - 1) / 2)) {
 						dungeon.setTile(xtemp, ytemp, t.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
-					} else
+					} else {
 						dungeon.setTile(xtemp, ytemp, t.getFloor2Wall());
+						dungeon.setFree(xtemp, ytemp, true);
+						// dungeon.setTile(xtemp, ytemp, t.DOOR);
+					}
 				}
 			}
 

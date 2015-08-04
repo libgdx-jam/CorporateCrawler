@@ -6,6 +6,7 @@ import com.porkopolis.crawler.items.Inventory;
 
 public class GameManager {
 	private static Game game;
+	public static String title = "Corporate Crawler";
 
 	private InventoryManager inventory;
 

@@ -1,9 +1,13 @@
 package com.porkopolis.crawler.utils;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+
 public class Dungeon {
 	private int[] tileLayer;
 	private boolean[] collisionLayer;
 	private int[] entityLayer;
+	private int[] freeLayer;
 	private int xSize;
 	private int ySize;
 	private int objects;
@@ -32,6 +36,7 @@ public class Dungeon {
 		tileLayer = new int[xSize * ySize];
 		collisionLayer = new boolean[xSize * ySize];
 		entityLayer = new int[xSize * ySize];
+		freeLayer = new int[xSize * ySize];
 
 	}
 
@@ -92,6 +97,34 @@ public class Dungeon {
 
 	public TileSet getTitleSet() {
 		return t;
+	}
+
+	public void setFree(int x, int y, boolean isFree) {
+		if (isFree)
+			freeLayer[x + xSize * y] = 1;
+		else
+			freeLayer[x + xSize * y] = 0;
+	}
+
+	public boolean isFree(int x, int y) {
+
+		if (freeLayer[x + xSize * y] == 1) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public Vector2 getRandomFree() {
+		int tmpx = MathUtils.random(1, xSize);
+		int tmpy = MathUtils.random(1, ySize);
+		while (!isFree(tmpx, tmpy)) {
+			tmpx = MathUtils.random(1, xSize);
+			tmpy = MathUtils.random(1, ySize);
+		}
+
+		return new Vector2(tmpx, tmpy);
+
 	}
 
 }

@@ -22,7 +22,7 @@ public class Player implements Entity {
 		def.position.set(startPosition);
 		def.type = BodyType.DynamicBody;
 		def.angularDamping = 1.0f;
-		def.linearDamping = 1.0f;
+		def.linearDamping = 1.2f;
 
 		body = world.createBody(def);
 
@@ -31,11 +31,12 @@ public class Player implements Entity {
 
 		FixtureDef fDef = new FixtureDef();
 		fDef.shape = cir;
-		fDef.density = 0.5f;
+		fDef.density = 0.60f;
 		fDef.friction = 0.0f;
 		fDef.restitution = 0.01f;
 
 		Fixture fixture = body.createFixture(fDef);
+		body.setUserData(this);
 	}
 
 	@Override
