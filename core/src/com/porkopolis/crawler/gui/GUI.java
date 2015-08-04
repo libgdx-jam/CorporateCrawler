@@ -67,9 +67,9 @@ public class GUI {
 		stage.act();
 		stage.draw();
 		if (debug)
-			fpsLabel.setText("fps: " + Gdx.graphics.getFramesPerSecond());
+			fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
 		else
-			fpsLabel.setText("      ");
+			fpsLabel.setText("       ");
 	}
 
 	public Stage getStage() {

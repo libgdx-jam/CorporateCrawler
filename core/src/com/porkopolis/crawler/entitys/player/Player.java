@@ -1,6 +1,5 @@
 package com.porkopolis.crawler.entitys.player;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,15 +8,13 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Disposable;
 import com.porkopolis.crawler.entitys.Entity;
 
 public class Player implements Entity {
 	private Vector2 position;
 	private Body body;
 	private float baseSpeed = 1f;
-	private float speed = 0f;
-	private float rotation = 0;
+	private float speed = 1f;
 
 	public Player(Vector2 startPosition, World world) {
 		this.position = startPosition;
@@ -43,7 +40,7 @@ public class Player implements Entity {
 
 	@Override
 	public void update(float delta) {
-		
+
 	}
 
 	public Body getBody() {
