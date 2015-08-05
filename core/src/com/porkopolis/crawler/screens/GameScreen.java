@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.Assets;
 import com.porkopolis.crawler.EntityManager;
 import com.porkopolis.crawler.entitys.Entity;
+import com.porkopolis.crawler.entitys.StaticEntity;
 import com.porkopolis.crawler.entitys.player.Player;
 import com.porkopolis.crawler.gui.GUI;
 import com.porkopolis.crawler.input.DesktopInputHandler;
@@ -71,13 +72,22 @@ public class GameScreen implements Screen {
 		world = new World(new Vector2(0, 0), true);
 
 		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, world);
-		player = new Player(new Vector2(50,50), world);
+		Vector2 start = dungeon.getRandomFree();
+		start.add(0.5f, 0.5f);
+		player = new Player(start, world);
 		entityManager.getEntitys().add(player);
 
-		// for (int x = 0; x < 100; x++) {
-		// 	Vector2 c = dungeon.getRandomFree();
-		// 	System.out.println(c.toString());
-		// }
+		// StaticEntity entity2 = new StaticEntity(start, world);
+
+		for (int x = 0; x < 100; x++) {
+			Vector2 c = dungeon.getRandomFree();
+			c.add(0.5f, 0.5f);
+
+			StaticEntity entity = new StaticEntity(c, world);
+			entityManager.getEntitys().add(entity);
+
+			System.out.println(c.toString());
+		}
 
 		batch = new SpriteBatch(100);
 

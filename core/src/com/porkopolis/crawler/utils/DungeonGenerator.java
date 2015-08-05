@@ -234,6 +234,7 @@ public class DungeonGenerator {
 			int direction) {
 		int xlen = MathUtils.random(6, xlength);
 		int ylen = MathUtils.random(6, ylength);
+		Room room = new Room();
 
 		int dir = 0;
 		if (direction > 0 && direction < 4)
@@ -251,6 +252,8 @@ public class DungeonGenerator {
 						return false;
 				}
 			}
+
+			// At this point we will be making the room
 
 			for (int ytemp = y; ytemp > (y - ylen); ytemp--) {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
@@ -291,6 +294,8 @@ public class DungeonGenerator {
 						return false;
 				}
 			}
+
+			// At this point we will be making the room
 
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
 				for (int xtemp = x; xtemp < (x + xlen); xtemp++) {
@@ -349,6 +354,9 @@ public class DungeonGenerator {
 						return false;
 				}
 			}
+
+			// At this point we will be making the room
+
 			for (int ytemp = y; ytemp < (y + ylen); ytemp++) {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
 					if (xtemp == (x - xlen / 2)) {
@@ -390,6 +398,8 @@ public class DungeonGenerator {
 						return false;
 				}
 			}
+
+			// At this point we will be making the room
 
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
 				for (int xtemp = x; xtemp > (x - xlen); xtemp--) {

@@ -12,6 +12,8 @@ public class Dungeon {
 	private int ySize;
 	private int objects;
 
+	private int[][] rooms;
+
 	private String tileSet;
 	private TileSet t = new TileSet();
 
@@ -37,6 +39,7 @@ public class Dungeon {
 		collisionLayer = new boolean[xSize * ySize];
 		entityLayer = new int[xSize * ySize];
 		freeLayer = new int[xSize * ySize];
+		rooms = new int[1000][xSize * ySize];
 
 	}
 
@@ -115,16 +118,24 @@ public class Dungeon {
 
 	}
 
+	/**
+	 * This does not take into consideration your circle's origin is in the
+	 * center not the bottom left. You may need to offset this.
+	 * */
 	public Vector2 getRandomFree() {
-		int tmpx = MathUtils.random(1, xSize);
-		int tmpy = MathUtils.random(1, ySize);
+		int tmpx = MathUtils.random(1, xSize - 1);
+		int tmpy = MathUtils.random(1, ySize - 1);
 		while (!isFree(tmpx, tmpy)) {
-			tmpx = MathUtils.random(1, xSize);
-			tmpy = MathUtils.random(1, ySize);
+			tmpx = MathUtils.random(1, xSize - 1);
+			tmpy = MathUtils.random(1, ySize - 1);
 		}
 
-		return new Vector2(tmpx, tmpy);
-
+		if (isFree(tmpx, tmpy)) {
+			return new Vector2(tmpx, tmpy);
+		} else {
+			System.out.print("FUCK");
+			return new Vector2(tmpx, tmpy);
+		}
 	}
 
 }
