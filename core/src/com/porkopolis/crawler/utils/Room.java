@@ -17,4 +17,11 @@ public class Room {
 		return tiles;
 	}
 
+	public void addTile(Tile tile) {
+		tiles.add(tile);
+	}
+
+	public void addTile(int x, int y, int tileset) {
+		addTile(new Tile(x, y, tileset));
+	}
 }

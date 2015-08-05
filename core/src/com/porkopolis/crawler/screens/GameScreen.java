@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.Assets;
+import com.porkopolis.crawler.DungeonManager;
 import com.porkopolis.crawler.EntityManager;
 import com.porkopolis.crawler.entitys.Entity;
 import com.porkopolis.crawler.entitys.StaticEntity;
@@ -61,10 +62,10 @@ public class GameScreen implements Screen {
 		camera.translate(50, 50);
 		camera.update();
 
-		Dungeon dungeon = new Dungeon(100, 100, MathUtils.random(150, 200),
-				"Office01.png");
-		DungeonGenerator.createDungeon(dungeon);
-		SaveMap.saveDungeon(dungeon, "test.tmx");
+		DungeonManager.dungeon = new Dungeon(100, 100, MathUtils.random(150,
+				200), "Office01.png");
+		DungeonGenerator.createDungeon(DungeonManager.dungeon);
+		SaveMap.saveDungeon(DungeonManager.dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 0.03125f);
@@ -72,7 +73,7 @@ public class GameScreen implements Screen {
 		world = new World(new Vector2(0, 0), true);
 
 		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, world);
-		Vector2 start = dungeon.getRandomFree();
+		Vector2 start = DungeonManager.getFree();
 		start.add(0.5f, 0.5f);
 		player = new Player(start, world);
 		entityManager.getEntitys().add(player);
@@ -80,7 +81,7 @@ public class GameScreen implements Screen {
 		// StaticEntity entity2 = new StaticEntity(start, world);
 
 		for (int x = 0; x < 100; x++) {
-			Vector2 c = dungeon.getRandomFree();
+			Vector2 c = DungeonManager.getFree();
 			c.add(0.5f, 0.5f);
 
 			StaticEntity entity = new StaticEntity(c, world);

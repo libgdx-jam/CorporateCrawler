@@ -7,6 +7,8 @@ public class Tile {
 
 	private int tileset;
 
+	private boolean occupied = false;
+
 	public Tile(int x, int y, int tileset) {
 		this.x = x;
 		this.y = y;
@@ -35,6 +37,14 @@ public class Tile {
 
 	public void setTileset(int tileset) {
 		this.tileset = tileset;
+	}
+
+	public boolean isOccupied() {
+		return occupied;
+	}
+
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
 	}
 
 }

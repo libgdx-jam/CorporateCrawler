@@ -7,7 +7,6 @@ public class Dungeon {
 	private int[] tileLayer;
 	private boolean[] collisionLayer;
 	private int[] entityLayer;
-	private int[] freeLayer;
 	private int xSize;
 	private int ySize;
 	private int objects;
@@ -38,7 +37,6 @@ public class Dungeon {
 		tileLayer = new int[xSize * ySize];
 		collisionLayer = new boolean[xSize * ySize];
 		entityLayer = new int[xSize * ySize];
-		freeLayer = new int[xSize * ySize];
 		rooms = new int[1000][xSize * ySize];
 
 	}
@@ -100,42 +98,6 @@ public class Dungeon {
 
 	public TileSet getTitleSet() {
 		return t;
-	}
-
-	public void setFree(int x, int y, boolean isFree) {
-		if (isFree)
-			freeLayer[x + xSize * y] = 1;
-		else
-			freeLayer[x + xSize * y] = 0;
-	}
-
-	public boolean isFree(int x, int y) {
-
-		if (freeLayer[x + xSize * y] == 1) {
-			return true;
-		}
-		return false;
-
-	}
-
-	/**
-	 * This does not take into consideration your circle's origin is in the
-	 * center not the bottom left. You may need to offset this.
-	 * */
-	public Vector2 getRandomFree() {
-		int tmpx = MathUtils.random(1, xSize - 1);
-		int tmpy = MathUtils.random(1, ySize - 1);
-		while (!isFree(tmpx, tmpy)) {
-			tmpx = MathUtils.random(1, xSize - 1);
-			tmpy = MathUtils.random(1, ySize - 1);
-		}
-
-		if (isFree(tmpx, tmpy)) {
-			return new Vector2(tmpx, tmpy);
-		} else {
-			System.out.print("FUCK");
-			return new Vector2(tmpx, tmpy);
-		}
 	}
 
 }
