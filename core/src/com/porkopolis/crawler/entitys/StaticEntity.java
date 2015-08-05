@@ -55,4 +55,16 @@ public class StaticEntity implements Entity {
 		}
 	}
 
+	@Override
+	public Body getBody() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAngle(float f) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
