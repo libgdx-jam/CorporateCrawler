@@ -64,7 +64,7 @@ public class Assets implements Disposable {
 			reg = atlas.findRegion("body");
 		}
 	}
-	
+
 	public static class AssetLegs {
 		public AtlasRegion reg;
 
