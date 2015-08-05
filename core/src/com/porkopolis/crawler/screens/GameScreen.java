@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.Assets;
 import com.porkopolis.crawler.EntityManager;
+import com.porkopolis.crawler.GameManager;
 import com.porkopolis.crawler.entitys.Entity;
 import com.porkopolis.crawler.entitys.player.Player;
 import com.porkopolis.crawler.gui.GUI;
@@ -34,7 +35,6 @@ public class GameScreen implements Screen {
 	private TiledMap tiledMap;
 	private TiledMapRenderer tiledMapRenderer;
 
-	private World world;
 	private Body body;
 
 	private EntityManager entityManager = new EntityManager();
@@ -68,10 +68,9 @@ public class GameScreen implements Screen {
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 0.03125f);
 
-		world = new World(new Vector2(0, 0), true);
 
-		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, world);
-		player = new Player(new Vector2(50,50), world);
+		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, GameManager.getWorld());
+		player = new Player(new Vector2(50,50), GameManager.getWorld());
 		entityManager.getEntitys().add(player);
 
 		// for (int x = 0; x < 100; x++) {
@@ -105,17 +104,15 @@ public class GameScreen implements Screen {
 		camera.position.set(player.getBody().getPosition(), 0);
 		camera.update();
 
-		world.step(1 / 60f, 6, 2);
+		GameManager.getWorld().step(1 / 60f, 6, 2);
+		
 		player.update(delta);
-		for (Entity e : entityManager.getEntitys()) {
-			if (!(e instanceof Player)) {
-				e.update(delta);
-			}
-		}
+		entityManager.update(delta);
 
 		tiledMapRenderer.setView(camera);
 		if (gui.debug != true)
 			tiledMapRenderer.render();
+		
 		if (gui.debug == false) {
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
@@ -127,7 +124,7 @@ public class GameScreen implements Screen {
 			batch.end();
 		}
 		if (gui.debug == true)
-			renderer.render(world, camera.combined);
+			renderer.render(GameManager.getWorld(), camera.combined);
 
 		gui.update(delta);
 

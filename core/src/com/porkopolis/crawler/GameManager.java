@@ -2,11 +2,14 @@ package com.porkopolis.crawler;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.porkopolis.crawler.items.Inventory;
 
 public class GameManager {
 	private static Game game;
 	public static String title = "Corporate Crawler";
+	private static World world;
 
 	private InventoryManager inventory;
 
@@ -15,11 +18,16 @@ public class GameManager {
 	}
 
 	public static void setScreen(Screen screen) {
+		world = new World(new Vector2(0, 0), true);
 		game.setScreen(screen);
 	}
 
 	public InventoryManager getInventory() {
 		return inventory;
+	}
+	
+	public static World getWorld(){
+		 return world;
 	}
 
 }
