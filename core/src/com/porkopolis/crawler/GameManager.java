@@ -8,10 +8,9 @@ import com.porkopolis.crawler.items.Inventory;
 
 public class GameManager {
 	public static String title = "Corporate Crawler";
+	private static World world;
 
 	private static Game game;
-
-	private static World world;
 
 	public static InventoryManager inventory;
 
@@ -24,6 +23,7 @@ public class GameManager {
 	}
 
 	public static void setScreen(Screen screen) {
+		world = new World(new Vector2(0, 0), true);
 		game.setScreen(screen);
 	}
 

@@ -63,4 +63,8 @@ build/
 ## OS Specific
 .DS_Store
 desktop/Maps/test.tmx
+<<<<<<< HEAD
 *.tmx
+=======
+desktop/Maps/test.tmx
+>>>>>>> origin/master

@@ -74,19 +74,21 @@ public class GameScreen implements Screen {
 				GameManager.getWorld());
 		Vector2 start = DungeonManager.getFree();
 		start.add(0.5f, 0.5f);
-		start = new Vector2(50, 50);
 		player = new Player(start, GameManager.getWorld());
+
 		entityManager.getEntitys().add(player);
 
-		// for (int x = 0; x < 100; x++) {
-		// Vector2 c = DungeonManager.getFree();
-		// c.add(0.5f, 0.5f);
-		//
-		// StaticEntity entity = new StaticEntity(c, GameManager.getWorld());
-		// entityManager.getEntitys().add(entity);
-		//
-		// System.out.println(c.toString());
-		// }
+		// StaticEntity entity2 = new StaticEntity(start, world);
+
+		for (int x = 0; x < 100; x++) {
+			Vector2 c = DungeonManager.getFree();
+			c.add(0.5f, 0.5f);
+
+			StaticEntity entity = new StaticEntity(c, GameManager.getWorld());
+			entityManager.getEntitys().add(entity);
+
+			System.out.println(c.toString());
+		}
 
 		batch = new SpriteBatch(100);
 
@@ -115,16 +117,14 @@ public class GameScreen implements Screen {
 		camera.update();
 
 		GameManager.getWorld().step(1 / 60f, 6, 2);
+
 		player.update(delta);
-		for (Entity e : entityManager.getEntitys()) {
-			if (!(e instanceof Player)) {
-				e.update(delta);
-			}
-		}
+		entityManager.update(delta);
 
 		tiledMapRenderer.setView(camera);
 		if (gui.debug != true)
 			tiledMapRenderer.render();
+
 		if (gui.debug == false) {
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();

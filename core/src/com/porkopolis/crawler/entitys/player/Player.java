@@ -84,4 +84,10 @@ public class Player implements Entity {
 		getBody().applyForce(vector, getBody().getWorldCenter(), true);
 	}
 
+	@Override
+	public void setAngle(float f) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
