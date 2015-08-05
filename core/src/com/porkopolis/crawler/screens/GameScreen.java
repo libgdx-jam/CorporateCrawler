@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.Assets;
 import com.porkopolis.crawler.DungeonManager;
 import com.porkopolis.crawler.EntityManager;
+import com.porkopolis.crawler.GameManager;
 import com.porkopolis.crawler.entitys.Entity;
 import com.porkopolis.crawler.entitys.StaticEntity;
 import com.porkopolis.crawler.entitys.player.Player;
@@ -36,7 +37,6 @@ public class GameScreen implements Screen {
 	private TiledMap tiledMap;
 	private TiledMapRenderer tiledMapRenderer;
 
-	private World world;
 	private Body body;
 
 	private EntityManager entityManager = new EntityManager();
@@ -70,25 +70,23 @@ public class GameScreen implements Screen {
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 0.03125f);
 
-		world = new World(new Vector2(0, 0), true);
-
-		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, world);
+		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32,
+				GameManager.getWorld());
 		Vector2 start = DungeonManager.getFree();
 		start.add(0.5f, 0.5f);
-		player = new Player(start, world);
+		start = new Vector2(50, 50);
+		player = new Player(start, GameManager.getWorld());
 		entityManager.getEntitys().add(player);
 
-		// StaticEntity entity2 = new StaticEntity(start, world);
-
-		for (int x = 0; x < 100; x++) {
-			Vector2 c = DungeonManager.getFree();
-			c.add(0.5f, 0.5f);
-
-			StaticEntity entity = new StaticEntity(c, world);
-			entityManager.getEntitys().add(entity);
-
-			System.out.println(c.toString());
-		}
+		// for (int x = 0; x < 100; x++) {
+		// Vector2 c = DungeonManager.getFree();
+		// c.add(0.5f, 0.5f);
+		//
+		// StaticEntity entity = new StaticEntity(c, GameManager.getWorld());
+		// entityManager.getEntitys().add(entity);
+		//
+		// System.out.println(c.toString());
+		// }
 
 		batch = new SpriteBatch(100);
 
@@ -116,7 +114,7 @@ public class GameScreen implements Screen {
 		camera.position.set(player.getBody().getPosition(), 0);
 		camera.update();
 
-		world.step(1 / 60f, 6, 2);
+		GameManager.getWorld().step(1 / 60f, 6, 2);
 		player.update(delta);
 		for (Entity e : entityManager.getEntitys()) {
 			if (!(e instanceof Player)) {
@@ -138,7 +136,7 @@ public class GameScreen implements Screen {
 			batch.end();
 		}
 		if (gui.debug == true)
-			renderer.render(world, camera.combined);
+			renderer.render(GameManager.getWorld(), camera.combined);
 
 		gui.update(delta);
 
