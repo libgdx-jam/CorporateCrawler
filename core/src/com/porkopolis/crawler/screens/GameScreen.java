@@ -1,5 +1,8 @@
 package com.porkopolis.crawler.screens;
 
+import box2dLight.ConeLight;
+import box2dLight.RayHandler;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -34,8 +37,6 @@ public class GameScreen implements Screen {
 	private TiledMap tiledMap;
 	private TiledMapRenderer tiledMapRenderer;
 
-	private Body body;
-
 	private EntityManager entityManager = new EntityManager();
 
 	private SpriteBatch batch;
@@ -48,6 +49,8 @@ public class GameScreen implements Screen {
 
 	private InputMultiplexer input;
 	private DesktopInputHandler desktop;
+
+	RayHandler rayHandler;
 
 	@Override
 	public void show() {
@@ -80,6 +83,17 @@ public class GameScreen implements Screen {
 		renderer = new Box2DDebugRenderer();
 		renderer.setDrawBodies(true);
 
+		// RayHandler.setGammaCorrection(true);
+		// RayHandler.useDiffuseLight(true);
+
+		rayHandler = new RayHandler(GameManager.getWorld());
+
+		rayHandler.setAmbientLight(0.5f, 0.5f, 0.5f, 0.2f);
+		// rayHandler.setShadows(false);
+		ConeLight light = new ConeLight(rayHandler, 128, null, 16f, 0, 0, 0f,
+				player.getRotation());
+		light.attachToBody(player.getBody(), 0, 0, 0);
+
 		input = new InputMultiplexer();
 		input.addProcessor(gui.getStage());
 		if (Gdx.app.getType() == ApplicationType.Desktop) {
@@ -92,7 +106,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 
 		if (Gdx.app.getType() == ApplicationType.Desktop) {
 			desktop.update(delta);
@@ -120,6 +134,10 @@ public class GameScreen implements Screen {
 					0.875f, 1, 1, (player.getRotation()) * MathUtils.radDeg);
 			batch.end();
 		}
+
+		rayHandler.setCombinedMatrix(camera);
+		rayHandler.render();
+
 		if (gui.debug == true)
 			renderer.render(GameManager.getWorld(), camera.combined);
 
@@ -152,7 +170,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		batch.dispose();
+		tiledMap.dispose();
 		gui.dispose();
+		rayHandler.dispose();
 	}
 
 }
