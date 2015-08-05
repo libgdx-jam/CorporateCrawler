@@ -236,7 +236,7 @@ public class TileSet {
 		}
 	}
 
-	public int getFloor1Wall() {
+	public int getFloor1() {
 		switch (MathUtils.random(0, 99)) {
 		case 0:
 			return FLOOR_1_2;
@@ -261,7 +261,7 @@ public class TileSet {
 		}
 	}
 
-	public int getFloor2Wall() {
+	public int getFloor2() {
 		switch (MathUtils.random(0, 99)) {
 		case 0:
 			return FLOOR_2_2;
@@ -286,7 +286,7 @@ public class TileSet {
 		}
 	}
 
-	public int getFloor3Wall() {
+	public int getFloor3() {
 		switch (MathUtils.random(0, 99)) {
 		case 0:
 			return FLOOR_3_2;
@@ -311,7 +311,7 @@ public class TileSet {
 		}
 	}
 
-	public int getFloor4Wall() {
+	public int getFloor4() {
 		switch (MathUtils.random(0, 99)) {
 		case 0:
 			return FLOOR_4_2;
@@ -336,7 +336,7 @@ public class TileSet {
 		}
 	}
 
-	public int getFloor5Wall() {
+	public int getFloor5() {
 		switch (MathUtils.random(0, 99)) {
 		case 0:
 			return FLOOR_5_2;

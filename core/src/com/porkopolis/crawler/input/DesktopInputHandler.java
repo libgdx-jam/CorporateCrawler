@@ -34,22 +34,16 @@ public class DesktopInputHandler implements InputProcessor {
 
 		if (Gdx.input.isKeyJustPressed(Keys.G)) {
 			for (int i = 0; i < player.getBody().getFixtureList().size; i++) {
-				player.getBody()
-						.getFixtureList()
-						.get(i)
-						.setSensor(
-								!player.getBody().getFixtureList().get(i)
-										.isSensor());
+				player.getBody().getFixtureList().get(i)
+						.setSensor(!player.getBody().getFixtureList().get(i).isSensor());
 			}
 		}
 		// End debug
 
 		// Begin player controls
-		Vector3 mouse = camera.unproject(new Vector3(Gdx.input.getX(),
-				Gdx.input.getY(), 0));
-		player.setRotation(MathUtils.atan2(mouse.y
-				- player.getBody().getPosition().y, mouse.x
-				- player.getBody().getPosition().x));
+		Vector3 mouse = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+		player.setRotation(MathUtils.atan2(mouse.y - player.getBody().getPosition().y,
+				mouse.x - player.getBody().getPosition().x));
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 			player.setSpeed((player.getBaseSpeed() * 2));
@@ -76,8 +70,7 @@ public class DesktopInputHandler implements InputProcessor {
 
 		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
 			player.getBody().applyForce(
-					new Vector2(MathUtils.cos(player.getRotation()),
-							MathUtils.sin(player.getRotation())),
+					new Vector2(MathUtils.cos(player.getRotation()), MathUtils.sin(player.getRotation())),
 					player.getBody().getWorldCenter(), true);
 		}
 

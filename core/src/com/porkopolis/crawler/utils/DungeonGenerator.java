@@ -7,8 +7,6 @@ public class DungeonGenerator {
 
 	private static TileSet t;
 
-	private static long oldseed = 0;
-
 	private static Dungeon dungeon;
 
 	public static void createDungeon(Dungeon dungeon) {
@@ -279,8 +277,8 @@ public class DungeonGenerator {
 						dungeon.setTile(xtemp, ytemp, t.getTopWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
-						dungeon.setTile(xtemp, ytemp, t.getFloor1Wall());
-						room.addTile(xtemp, ytemp, t.getFloor1Wall());
+						dungeon.setTile(xtemp, ytemp, t.getFloor1());
+						room.addTile(xtemp, ytemp, t.getFloor1());
 					}
 				}
 			}
@@ -338,8 +336,8 @@ public class DungeonGenerator {
 						dungeon.setTile(xtemp, ytemp, t.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
-						dungeon.setTile(xtemp, ytemp, t.getFloor2Wall());
-						room.addTile(xtemp, ytemp, t.getFloor2Wall());
+						dungeon.setTile(xtemp, ytemp, t.getFloor2());
+						room.addTile(xtemp, ytemp, t.getFloor2());
 					}
 				}
 			}
@@ -384,8 +382,8 @@ public class DungeonGenerator {
 						dungeon.setTile(xtemp, ytemp, t.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
-						dungeon.setTile(xtemp, ytemp, t.getFloor3Wall());
-						room.addTile(xtemp, ytemp, t.getFloor3Wall());
+						dungeon.setTile(xtemp, ytemp, t.getFloor3());
+						room.addTile(xtemp, ytemp, t.getFloor3());
 					}
 				}
 			}
@@ -445,8 +443,8 @@ public class DungeonGenerator {
 						dungeon.setTile(xtemp, ytemp, t.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else
-						dungeon.setTile(xtemp, ytemp, t.getFloor4Wall());
-					room.addTile(xtemp, ytemp, t.getFloor4Wall());
+						dungeon.setTile(xtemp, ytemp, t.getFloor4());
+					room.addTile(xtemp, ytemp, t.getFloor4());
 
 				}
 			}
