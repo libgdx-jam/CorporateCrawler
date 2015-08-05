@@ -87,7 +87,7 @@ public class Player implements Entity {
 	@Override
 	public void setAngle(float f) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

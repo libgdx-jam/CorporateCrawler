@@ -15,14 +15,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.Assets;
 import com.porkopolis.crawler.DungeonManager;
 import com.porkopolis.crawler.EntityManager;
 import com.porkopolis.crawler.GameManager;
-import com.porkopolis.crawler.entitys.Entity;
-import com.porkopolis.crawler.entitys.StaticEntity;
 import com.porkopolis.crawler.entitys.player.Player;
 import com.porkopolis.crawler.gui.GUI;
 import com.porkopolis.crawler.input.DesktopInputHandler;
@@ -77,18 +74,6 @@ public class GameScreen implements Screen {
 		player = new Player(start, GameManager.getWorld());
 
 		entityManager.getEntitys().add(player);
-
-		// StaticEntity entity2 = new StaticEntity(start, world);
-
-		for (int x = 0; x < 100; x++) {
-			Vector2 c = DungeonManager.getFree();
-			c.add(0.5f, 0.5f);
-
-			StaticEntity entity = new StaticEntity(c, GameManager.getWorld());
-			entityManager.getEntitys().add(entity);
-
-			System.out.println(c.toString());
-		}
 
 		batch = new SpriteBatch(100);
 

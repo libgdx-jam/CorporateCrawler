@@ -2,7 +2,6 @@ package com.porkopolis.crawler.utils;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.porkopolis.crawler.DungeonManager;
-import com.porkopolis.crawler.GameManager;
 
 public class DungeonGenerator {
 
