@@ -1,5 +1,6 @@
 package com.porkopolis.crawler.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -32,6 +33,8 @@ public class MapBodyBuilder {
 
 		Array<Body> bodies = new Array<Body>();
 
+		int bodyCount = 0;
+
 		for (MapObject object : objects) {
 
 			if (object instanceof TextureMapObject) {
@@ -60,7 +63,9 @@ public class MapBodyBuilder {
 			bodies.add(body);
 
 			shape.dispose();
+			bodyCount++;
 		}
+		Gdx.app.log(MapBodyBuilder.class.getSimpleName(), "Created " + bodyCount + " bodies.");
 		return bodies;
 	}
 
