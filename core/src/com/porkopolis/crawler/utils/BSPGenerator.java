@@ -69,10 +69,10 @@ public class BSPGenerator {
 			Leaf roomLeaf = leaf.room;
 			Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 3 @ " + roomLeaf.toString());
 
-			for (int leafHeight = roomLeaf.y; leafHeight < roomLeaf.height; leafHeight++) {
+			for (int leafHeight = roomLeaf.y; leafHeight < roomLeaf.height + roomLeaf.y; leafHeight++) {
 				Gdx.app.log(BSPGenerator.class.getSimpleName(), "test");
 
-				for (int leafWidth = roomLeaf.x; leafWidth < roomLeaf.width; leafWidth++) {
+				for (int leafWidth = roomLeaf.x; leafWidth < roomLeaf.width + roomLeaf.x; leafWidth++) {
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), "test");
 
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), leafHeight + " " + leafWidth + " " + roomLeaf.toString());
