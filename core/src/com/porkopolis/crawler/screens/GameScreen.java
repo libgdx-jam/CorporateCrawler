@@ -28,6 +28,7 @@ import com.porkopolis.crawler.gui.GUI;
 import com.porkopolis.crawler.input.DesktopInputHandler;
 import com.porkopolis.crawler.utils.Dungeon;
 import com.porkopolis.crawler.utils.DungeonGenerator;
+import com.porkopolis.crawler.utils.DungeonGenerator2;
 import com.porkopolis.crawler.utils.MapBodyBuilder;
 import com.porkopolis.crawler.utils.SaveMap;
 
@@ -64,7 +65,7 @@ public class GameScreen implements Screen {
 
 		DungeonManager.dungeon = new Dungeon(100, 100, MathUtils.random(150,
 				200), "Office01.png");
-		DungeonGenerator.createDungeon(DungeonManager.dungeon);
+		DungeonGenerator2.createDungeon(DungeonManager.dungeon);
 		SaveMap.saveDungeon(DungeonManager.dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
