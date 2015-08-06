@@ -26,7 +26,7 @@ public class CreatePolyline {
 			} else if (dungeon.getCollisionLayer()[i] == false && last == true) {
 				last = false;
 				polyLines.add("" + "		 <object id=\"" + id + "\" x=\"" + poyStartX + "\" y=\"" + poyStartY + "\">\n" + "			<polyline points=\"0,0 " + count
-						* 32 + ",0 " + count * 32 + ",32 0,32 0,0\"/>\n" + "		  </object>/n");
+						* 32 + ",0 " + count * 32 + ",32 0,32 0,0\"/>\n" + "		  </object>\n");
 				id++;
 			}
 		}
