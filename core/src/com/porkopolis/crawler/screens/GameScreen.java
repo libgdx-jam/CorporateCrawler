@@ -136,7 +136,7 @@ public class GameScreen implements Screen {
 		if (gui.debug == true)
 			renderer.render(GameManager.getWorld(), camera.combined);
 
-		gui.update(delta);
+		gui.update(delta, player);
 
 	}
 

@@ -33,7 +33,7 @@ import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.ObjectMap;
 
 /**
- * @author David Saltares Márquez david.saltares at gmail.com
+ * @author David Saltares david.saltares at gmail.com
  * @brief Populates box2D world with static bodies using data from a map object
  * 
  *        It uses a JSON formatted materials file to assign properties to the

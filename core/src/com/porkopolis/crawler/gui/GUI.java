@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.porkopolis.crawler.Assets;
+import com.porkopolis.crawler.entitys.player.Player;
 
 public class GUI {
 
@@ -18,6 +19,8 @@ public class GUI {
 	public boolean debug = true;
 	private Label fpsLabel;
 	private int fps = 0;
+	
+	public Label playerPosLbl;
 
 	public GUI() {
 		stage = new Stage();
@@ -31,6 +34,7 @@ public class GUI {
 		table.debug();
 
 		fpsLabel = new Label("fps" + fps, skin);
+		playerPosLbl = new Label("",skin);
 
 		ImageButtonStyle imgBtnStyle = new ImageButtonStyle();
 		imgBtnStyle.up = skin.getDrawable("button");
@@ -53,9 +57,10 @@ public class GUI {
 		/** End table */
 
 		stage.addActor(table);
+		stage.addActor(playerPosLbl);
 	}
 
-	public void update(float delta) {
+	public void update(float delta, Player player) {
 		if (debug) {
 			table.debug();
 		} else {
@@ -67,6 +72,8 @@ public class GUI {
 			fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
 		else
 			fpsLabel.setText("       ");
+			
+			playerPosLbl.setText(player.getPosition().toString());
 	}
 
 	public Stage getStage() {

@@ -41,6 +41,7 @@ public class Player implements Entity {
 
 	@Override
 	public void update(float delta) {
+		position = body.getPosition();
 
 	}
 

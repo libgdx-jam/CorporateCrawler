@@ -31,8 +31,8 @@ public class BSPGenerator {
 		}
 		root.generateDungeon(); // generate dungeons
 
-		convert(dungeon, rectangles);
-		printDungeons(rectangles);
+	//	convert(dungeon, rectangles);
+		printDungeons(dungeon, rectangles);
 
 	}
 
@@ -87,8 +87,40 @@ public class BSPGenerator {
 
 	}
 
-	private void printDungeons(ArrayList<Leaf> Leafs) {
-		System.out.print(dungeon.getTileLayer().toString());
-	}
+private void printDungeons(Dungeon dungeon, ArrayList<Leaf> rectangles) {
+        byte [][] lines = new byte[dungeon.getxSize()][];
+        for( int i = 0; i < dungeon.getxSize(); i++ ) {
+            lines[ i ] = new byte[dungeon.getySize()];
+            for( int j = 0; j < dungeon.getySize(); j++ )
+                lines[ i ][ j ] =  -1;
+        }
+        byte dungeonCount = -1;
+        for( Leaf r : rectangles ) {
+            if( r.room == null )
+                continue;
+            Leaf d = r.room;
+            dungeonCount++;
+            for( int i = 0; i < d.height; i++ ) {
+                for( int j = 0; j < d.width; j++ )
+
+                    lines[ d.x + i ][ d.y + j ] = dungeonCount;
+            }
+        }
+        for( int i = 0; i < dungeon.getxSize(); i++ ) {
+            for( int j = 0; j < dungeon.getySize(); j++ ) {
+                if( lines[ i ][ j ] == -1 ){
+                    System.out.print( '.');
+					dungeon.setTile(i, j, dungeon.getTileSheet().VOID_1);
+                }
+                else{
+                    System.out.print( lines[ i ][ j ] );
+                   dungeon.setTile(i, j, dungeon.getTileSheet().FLOOR_1_1);
+                   dungeon.setCollision(leafWidth, leafHeight, true);
+
+             	}
+            }
+            System.out.println();
+        }
+    }
 
 }

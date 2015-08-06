@@ -41,7 +41,9 @@ public class Dungeon {
 	public int getTile(int x, int y) {
 		return tileLayer[x + xSize * y];
 	}
-
+	public Tileset getTileSheet(){
+		return t;
+	}
 	public boolean isFloor(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
 			if (getTile(x, y) >= t.FLOOR_1_1 && getTile(x, y) <= t.FLOOR_5_10) return true;
@@ -52,14 +54,14 @@ public class Dungeon {
 
 	public boolean isWall(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			if (getTile(x, y) > t.TOP_LEFT_INSIDE && getTile(x, y) < t.BOTTOM_WALL_10) return true;
+			if (getTile(x, y) >= t.TOP_LEFT_INSIDE && getTile(x, y) <= t.BOTTOM_WALL_10) return true;
 			else return false;
 		}
 		return false;
 	}
 	public boolean isTopWall(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			if (getTile(x, y) > t.TOP_WALL_1 && getTile(x, y) < t.TOP_WALL_10) return true;
+			if (getTile(x, y) >= t.TOP_WALL_1 && getTile(x, y) <= t.TOP_WALL_10) return true;
 			else return false;
 		}
 		return false;
@@ -67,7 +69,7 @@ public class Dungeon {
 
 	public boolean isBottomWall(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			if (getTile(x, y) > t.BOTTOM_WALL_1 && getTile(x, y) < t.BOTTOM_WALL_10) return true;
+			if (getTile(x, y) >= t.BOTTOM_WALL_1 && getTile(x, y) <= t.BOTTOM_WALL_10) return true;
 			else return false;
 		}
 		return false;
@@ -75,14 +77,14 @@ public class Dungeon {
 
 	public boolean isLeftWall(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			if (getTile(x, y) > t.LEFT_WALL_1 && getTile(x, y) < t.LEFT_WALL_10) return true;
+			if (getTile(x, y) >= t.LEFT_WALL_1 && getTile(x, y) <= t.LEFT_WALL_10) return true;
 			else return false;
 		}
 		return false;
 	}
-	public boolean isRighttWall(int x, int y) {
+	public boolean isRightWall(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			if (getTile(x, y) > t.RIGHT_WALL_1 && getTile(x, y) < t.RIGHT_WALL_10) return true;
+			if (getTile(x, y) >= t.RIGHT_WALL_1 && getTile(x, y) <= t.RIGHT_WALL_10) return true;
 			else return false;
 		}
 		return false;
@@ -133,33 +135,39 @@ public class Dungeon {
 
 	public void autoTile() {
 		int x, y = 0;
-
+	
+		//check for wall
 		for (int i = 0; i < tileLayer.length; i++) {
 			x = i % xSize;
 			if (x == 0) y++;
-			//check for wall
-			if (isFloor(x, y)) { //top wall
-				if (isVoid(x, y - 1)) {
-					setTile(x, y, t.getTopWall());
-				}
-			}
-			if (isFloor(x, y)) {//bottom wall
-				if (isVoid(x, y + 1)) {
-					setTile(x, y, t.getBottomWall());
-				}
-			}
 			if (isFloor(x, y)) {//left wall
-				if (isVoid(x - 1, y)) {
+				if (isVoid(x - 1, y) || x - 1 < 0) {
 					setTile(x, y, t.getLeftWall());
 				}
 			}
 			if (isFloor(x, y)) {//right wall
-				if (isVoid(x + 1, y)) {
+				if (isVoid(x + 1, y) || x + 1 > xSize) {
 					setTile(x, y, t.getRightWall());
 				}
 			}
+			if (isFloor(x, y)) { //top wall
+				if (isVoid(x, y - 1) || y - 1 < 0) {
+					setTile(x, y, t.getTopWall());
+				}
+			}
+			if (isFloor(x, y)) {//bottom wall
+				if (isVoid(x, y + 1) || y + 1 > ySize) {
+					setTile(x, y, t.getBottomWall());
+				}
+			}
+		}
 		
-			//check for corrners
+		x = 0;
+		y = 0;
+		//check for inside corrners
+		for (int i = 0; i < tileLayer.length; i++) {
+			x = i % xSize;
+			if (x == 0) y++;
 			if (isLeftWall(x, y)) {
 				if (isTopWall(x + 1, y)) {
 					setTile(x, y, t.TOP_LEFT_INSIDE);
@@ -170,16 +178,43 @@ public class Dungeon {
 					setTile(x, y, t.BOTTOM_LEFT_INSIDE);
 				}
 			}
-			if (isRighttWall(x, y)) {
+			if (isRightWall(x, y)) {
 				if (isTopWall(x - 1, y)) {
 					setTile(x, y, t.TOP_RIGHT_INSIDE);
 				}
 			}
-			if (isLeftWall(x, y)) {
+			if (isRightWall(x, y)) {
 				if (isBottomWall(x - 1, y)) {
 					setTile(x, y, t.BOTTOM_RIGHT_INSIDE);
 				}
 			}
+			
+		}
+		//check for outside corrners
+		for (int i = 0; i < tileLayer.length; i++) {
+			x = i % xSize;
+			if (x == 0) y++;
+			if (isFloor(x, y)) {
+				if (isTopWall(x, y-1) && isLeftWall(x-1, y)){
+					setTile(x, y, t.TOP_LEFT_OUTSIDE);
+				}
+			}
+			if (isFloor(x, y)) {
+				if (isTopWall(x, y-1) && isRightWall(x+1, y)){
+					setTile(x, y, t.TOP_RIGHT_OUTSIDE);
+				}
+			}
+			if (isFloor(x, y)) {
+				if (isBottomWall(x, y+1) && isLeftWall(x-1, y)){
+					setTile(x, y, t.BOTTOM_LEFT_OUTSIDE);
+				}
+			}
+			if (isFloor(x, y)) {
+				if (isTopWall(x, y+1) && isRightWall(x+1, y)){
+					setTile(x, y, t.BOTTOM_RIGHT_OUTSIDE);
+				}
+			}
+			
 		}
 	}
 
