@@ -237,7 +237,7 @@ public class DungeonGenerator2 {
 		if(xStart+xLen > dungeon.getxSize())
 			xLen = xLen-(dungeon.getxSize() - (xStart+xLen));
 		System.out.println("x");
-		if(yStart+yLen > dungeon.getySize())
+		if(yStart+yLen < dungeon.getySize())
 			yLen = yLen-(dungeon.getySize() - (yStart+yLen));
 		System.out.println("y");
 		
