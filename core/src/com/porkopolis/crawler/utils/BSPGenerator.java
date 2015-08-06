@@ -12,9 +12,9 @@ public class BSPGenerator {
 
 	public void generateDungeon() {
 		ArrayList<Leaf> rectangles = new ArrayList<Leaf>();
-		Leaf root = new Leaf(0, 0, 30, 60); //
+		Leaf root = new Leaf(0, 0, DungeonManager.dungeon.getxSize(), DungeonManager.dungeon.getySize()); //
 		rectangles.add(root); // populate rectangle store with root area
-		while (rectangles.size() < 38) { // this will give us 20? leaf areas
+		while (rectangles.size() < 19) { // this will give us 20? leaf areas
 			int splitIdx = rnd.nextInt(rectangles.size()); // choose a random
 			// element
 			Leaf toSplit = rectangles.get(splitIdx);
@@ -30,29 +30,27 @@ public class BSPGenerator {
 
 	}
 
-	private static void convert(Dungeon dungeon, ArrayList<Leaf> rectangles) {
+	private void convert(Dungeon dungeon, ArrayList<Leaf> rectangles) {
 
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
 				if (y == 0) {
 					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
-					dungeon.setCollision(x, y, false);
 				} else if (y == dungeon.getySize() - 1) {
 					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
-					dungeon.setCollision(x, y, false);
 
 				} else if (x == 0) {
 					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
-					dungeon.setCollision(x, y, false);
 				} else if (x == dungeon.getxSize() - 1) {
 					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
-					dungeon.setCollision(x, y, false);
 				} else {
 					dungeon.setTile(x, y, DungeonManager.tileset.VOID_1);
-					dungeon.setCollision(x, y, false);
 				}
+				dungeon.setCollision(x, y, false);
 			}
 		}
+
+		Gdx.app.log(BSPGenerator.class.getSimpleName(), "Number of rooms created: " + rectangles.size());
 
 		for (Leaf leaf : rectangles) {
 			Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 1");
@@ -65,7 +63,7 @@ public class BSPGenerator {
 			for (int i = d.x; i < d.height; i++) {
 				for (int j = d.y; j < d.width; j++) {
 					DungeonManager.dungeon.setTile(i, j, DungeonManager.tileset.getFloor1());
-					dungeon.setCollision(i, j, false);
+					dungeon.setCollision(i, j, true);
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 3");
 
 				}
