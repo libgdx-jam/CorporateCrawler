@@ -3,63 +3,50 @@ package com.porkopolis.crawler.utils;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.porkopolis.crawler.DungeonManager;
+
 public class GenerateDungeon {
 
 	private static Random rnd = new Random();
 
-	public static void main(String[] args) {
-		ArrayList<Leaf> rectangles = new ArrayList<Leaf>(); // flat rectangle
-															// store to help
-															// pick a random one
-		Leaf root = new Leaf(0, 0, 30, 60); //
-		rectangles.add(root); // populate rectangle store with root area
-		while (rectangles.size() < 38) { // this will give us 20? leaf areas
-			int splitIdx = rnd.nextInt(rectangles.size()); // choose a random
-															// element
-			Leaf toSplit = rectangles.get(splitIdx);
-			if (toSplit.split()) { // attempt to split
-				rectangles.add(toSplit.leftChild);
-				rectangles.add(toSplit.rightChild);
-			}
+	private static void convert(Dungeon dungeon, ArrayList<Leaf> rectangles) {
 
-		}
-		root.generateDungeon(); // generate dungeons
-
-		printDungeons(rectangles); // this is just to test the output
-
-	}
-
-	private static void printDungeons(ArrayList<Leaf> rectangles) {
-		byte[][] lines = new byte[60][];
-		for (int i = 0; i < 60; i++) {
-			lines[i] = new byte[120];
-			for (int j = 0; j < 120; j++)
-				lines[i][j] = -1;
-		}
-		byte dungeonCount = -1;
-		for (Leaf r : rectangles) {
-			if (r.room == null)
-				continue;
-			Leaf d = r.room;
-			dungeonCount++;
-			for (int i = 0; i < d.height; i++) {
-				for (int j = 0; j < d.width; j++)
-
-					lines[d.x + i][d.y + j] = dungeonCount;
-			}
-		}
-		for (int i = 0; i < 60; i++) {
-			for (int j = 0; j < 120; j++) {
-				if (lines[i][j] == -1)
-					System.out.print('.');
+		for (int y = 0; y < dungeon.getySize(); y++) {
+			for (int x = 0; x < dungeon.getxSize(); x++) {
+				if (y == 0)
+					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+				else if (y == dungeon.getySize() - 1)
+					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+				else if (x == 0)
+					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+				else if (x == dungeon.getxSize() - 1)
+					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
 				else
-					System.out.print(lines[i][j]);
+					dungeon.setTile(x, y, DungeonManager.tileset.VOID_1);
 			}
-			System.out.println();
 		}
+
+		for (int y = 0; y < dungeon.getySize(); y++) {
+			for (int x = 0; x < dungeon.getxSize(); x++) {
+				dungeon.setCollision(x, y, false);
+			}
+		}
+
+		for (Leaf leaf : rectangles) {
+			if (leaf.room == null)
+				continue;
+			Leaf d = leaf.room;
+
+			for (int i = d.x; i < d.height; i++) {
+				for (int j = d.y; j < d.width; j++) {
+					DungeonManager.dungeon.setTile(i, j, DungeonManager.tileset.getFloor1());
+				}
+			}
+		}
+
 	}
 
-	public void generateDungeon() {
+	public void generateDungeon(Dungeon dungeon) {
 		ArrayList<Leaf> rectangles = new ArrayList<Leaf>(); // flat rectangle
 		// store to help
 		// pick a random one
@@ -77,7 +64,7 @@ public class GenerateDungeon {
 		}
 		root.generateDungeon(); // generate dungeons
 
-		printDungeons(rectangles); // this is just to test the output
+		convert(dungeon, rectangles);
 
 	}
 
