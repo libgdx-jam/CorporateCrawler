@@ -53,8 +53,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		float w = 320;
-		float h = 200;
+		float w = 32;
+		float h = 20;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w, h);
@@ -64,6 +64,7 @@ public class GameScreen implements Screen {
 		Dungeon dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
 		BSPGenerator generator = new BSPGenerator(dungeon);
 		generator.generateDungeon();
+		dungeon.autoTile();
 		SaveMap.saveDungeon(dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
