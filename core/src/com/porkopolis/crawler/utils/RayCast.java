@@ -24,12 +24,10 @@ public class RayCast {
 
 	RayCastCallback callback = new RayCastCallback() {
 		@Override
-		public float reportRayFixture(Fixture fixture, Vector2 point,
-				Vector2 normal, float fraction) {
+		public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
 
 			if (fixture.getUserData() instanceof Player) {
-				Gdx.app.log(this.getClass().getSimpleName(),
-						"Eat that mothafucker!");
+				Gdx.app.log(this.getClass().getSimpleName(), "Eat that mothafucker!");
 			}
 
 			return 0;

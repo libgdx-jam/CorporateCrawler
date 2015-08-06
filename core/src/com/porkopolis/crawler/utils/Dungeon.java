@@ -54,8 +54,7 @@ public class Dungeon {
 	}
 
 	public boolean isWall(int x, int y) {
-		if (getTile(x, y) > t.TOP_LEFT_INSIDE
-				&& getTile(x, y) < t.BOTTOM_WALL_10)
+		if (getTile(x, y) > t.TOP_LEFT_INSIDE && getTile(x, y) < t.BOTTOM_WALL_10)
 			return true;
 		else
 			return false;

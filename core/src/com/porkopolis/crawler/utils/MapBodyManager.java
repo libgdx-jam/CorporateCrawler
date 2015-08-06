@@ -65,8 +65,7 @@ public class MapBodyManager {
 	 * @param loggingLevel
 	 *            verbosity of the embedded logger.
 	 */
-	public MapBodyManager(World world, float unitsPerPixel,
-			FileHandle materialsFile, int loggingLevel) {
+	public MapBodyManager(World world, float unitsPerPixel, FileHandle materialsFile, int loggingLevel) {
 		logger = new Logger("MapBodyManager", loggingLevel);
 		logger.info("initialising");
 
@@ -137,13 +136,11 @@ public class MapBodyManager {
 			}
 
 			MapProperties properties = object.getProperties();
-			String material = properties.get("material", "default",
-					String.class);
+			String material = properties.get("material", "default", String.class);
 			FixtureDef fixtureDef = materials.get(material);
 
 			if (fixtureDef == null) {
-				logger.error("material does not exist " + material
-						+ " using default");
+				logger.error("material does not exist " + material + " using default");
 				fixtureDef = materials.get("default");
 			}
 
@@ -201,25 +198,21 @@ public class MapBodyManager {
 				fixtureDef = new FixtureDef();
 				fixtureDef.density = materialValue.getFloat("density", 1.0f);
 				fixtureDef.friction = materialValue.getFloat("friction", 1.0f);
-				fixtureDef.restitution = materialValue.getFloat("restitution",
-						0.0f);
+				fixtureDef.restitution = materialValue.getFloat("restitution", 0.0f);
 				logger.info("adding material " + name);
 				materials.put(name, fixtureDef);
 			}
 
 		} catch (Exception e) {
-			logger.error("error loading " + materialsFile.name() + " "
-					+ e.getMessage());
+			logger.error("error loading " + materialsFile.name() + " " + e.getMessage());
 		}
 	}
 
 	private Shape getRectangle(RectangleMapObject rectangleObject) {
 		Rectangle rectangle = rectangleObject.getRectangle();
 		PolygonShape polygon = new PolygonShape();
-		Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f)
-				/ units, (rectangle.y + rectangle.height * 0.5f) / units);
-		polygon.setAsBox(rectangle.width * 0.5f / units, rectangle.height
-				* 0.5f / units, size, 0.0f);
+		Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) / units, (rectangle.y + rectangle.height * 0.5f) / units);
+		polygon.setAsBox(rectangle.width * 0.5f / units, rectangle.height * 0.5f / units, size, 0.0f);
 		return polygon;
 	}
 
@@ -227,8 +220,7 @@ public class MapBodyManager {
 		Circle circle = circleObject.getCircle();
 		CircleShape circleShape = new CircleShape();
 		circleShape.setRadius(circle.radius / units);
-		circleShape
-				.setPosition(new Vector2(circle.x / units, circle.y / units));
+		circleShape.setPosition(new Vector2(circle.x / units, circle.y / units));
 		return circleShape;
 	}
 
@@ -247,8 +239,7 @@ public class MapBodyManager {
 	}
 
 	private Shape getPolyline(PolylineMapObject polylineObject) {
-		float[] vertices = polylineObject.getPolyline()
-				.getTransformedVertices();
+		float[] vertices = polylineObject.getPolyline().getTransformedVertices();
 		Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
 		for (int i = 0; i < vertices.length / 2; ++i) {

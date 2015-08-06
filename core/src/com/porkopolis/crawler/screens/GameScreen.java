@@ -62,16 +62,14 @@ public class GameScreen implements Screen {
 		camera.translate(50, 50);
 		camera.update();
 
-		DungeonManager.dungeon = new Dungeon(100, 100, MathUtils.random(150,
-				200), "Office01.png");
+		DungeonManager.dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
 		DungeonGenerator.createDungeon(DungeonManager.dungeon);
 		SaveMap.saveDungeon(DungeonManager.dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 0.03125f);
 
-		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32,
-				GameManager.getWorld());
+		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, GameManager.getWorld());
 		Vector2 start = DungeonManager.getFree();
 		start.add(0.5f, 0.5f);
 		player = new Player(start, GameManager.getWorld());
@@ -90,8 +88,7 @@ public class GameScreen implements Screen {
 
 		rayHandler.setAmbientLight(0.5f, 0.5f, 0.5f, 0.2f);
 		// rayHandler.setShadows(false);
-		ConeLight light = new ConeLight(rayHandler, 128, null, 16f, 0, 0, 0f,
-				player.getRotation());
+		ConeLight light = new ConeLight(rayHandler, 128, null, 16f, 0, 0, 0f, player.getRotation());
 		light.attachToBody(player.getBody(), 0, 0, 0);
 
 		input = new InputMultiplexer();
@@ -128,10 +125,8 @@ public class GameScreen implements Screen {
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
 
-			batch.draw(Assets.player.reg,
-					player.getBody().getPosition().x - 0.5f, player.getBody()
-							.getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f,
-					0.875f, 1, 1, (player.getRotation()) * MathUtils.radDeg);
+			batch.draw(Assets.player.reg, player.getBody().getPosition().x - 0.5f, player.getBody().getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f, 0.875f, 1, 1,
+					(player.getRotation()) * MathUtils.radDeg);
 			batch.end();
 		}
 

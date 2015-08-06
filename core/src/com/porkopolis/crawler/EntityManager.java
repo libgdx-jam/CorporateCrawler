@@ -22,20 +22,24 @@ public class EntityManager {
 	public void addEntity(Entity e) {
 		entities.add(e);
 	}
-	public Entity getEnityt(int index){
+
+	public Entity getEnityt(int index) {
 		return entities.get(index);
 	}
-	public void removeEntity(int index){
+
+	public void removeEntity(int index) {
 		entities.removeIndex(index);
 	}
-	public int findEntity(Entity entityToFind){
-		for(int i = 0; i < entities.size; i++){
-			if(entityToFind == entities.get(i)){
+
+	public int findEntity(Entity entityToFind) {
+		for (int i = 0; i < entities.size; i++) {
+			if (entityToFind == entities.get(i)) {
 				return i;
 			}
 		}
 		return -1;
 	}
+
 	// Save this for later -nate 8/4/2015
 	public void interpolate(float alpha) {
 		for (Entity entity : entities) {
@@ -50,4 +54,4 @@ public class EntityManager {
 			entity.setAngle(bodyAngle * alpha + angle * (1.0f - alpha));
 		}
 	}
-	}
+}

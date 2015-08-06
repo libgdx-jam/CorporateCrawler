@@ -41,8 +41,7 @@ public class DungeonGenerator {
 			}
 		}
 
-		DungeonGenerator.makeRoom(dungeon.getxSize() / 2,
-				dungeon.getySize() / 2, 8, 6, MathUtils.random(0, 3));
+		DungeonGenerator.makeRoom(dungeon.getxSize() / 2, dungeon.getySize() / 2, 8, 6, MathUtils.random(0, 3));
 
 		currentFeatures = 1;
 
@@ -98,9 +97,7 @@ public class DungeonGenerator {
 			}
 
 			if (validTile > -1) {
-				if (makeRoom((newx + xmod), (newy + ymod),
-						MathUtils.random(6, 15), MathUtils.random(6, 15),
-						validTile)) {
+				if (makeRoom((newx + xmod), (newy + ymod), MathUtils.random(6, 15), MathUtils.random(6, 15), validTile)) {
 					currentFeatures++; // add to our quota
 
 					switch (validTile) {
@@ -112,27 +109,22 @@ public class DungeonGenerator {
 						if (dungeon.getTile(newx - 1, newy) == t.TOP_LEFT_INSIDE)
 							dungeon.setTile(newx - 1, newy, t.getLeftWall());
 						else
-							dungeon.setTile(newx - 1, newy,
-									t.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy, t.BOTTOM_RIGHT_OUTSIDE);
 
 						if (dungeon.getTile(newx + 1, newy) == t.TOP_RIGHT_INSIDE)
 							dungeon.setTile(newx + 1, newy, t.getRightWall());
 						else
-							dungeon.setTile(newx + 1, newy,
-									t.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy, t.BOTTOM_LEFT_OUTSIDE);
 						// Other side
 						if (dungeon.getTile(newx - 1, newy - 1) == t.BOTTOM_LEFT_INSIDE)
 							dungeon.setTile(newx - 1, newy - 1, t.getLeftWall());
 						else
-							dungeon.setTile(newx - 1, newy - 1,
-									t.TOP_LEFT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy - 1, t.TOP_LEFT_OUTSIDE);
 
 						if (dungeon.getTile(newx + 1, newy - 1) == t.BOTTOM_RIGHT_INSIDE)
-							dungeon.setTile(newx + 1, newy - 1,
-									t.getRightWall());
+							dungeon.setTile(newx + 1, newy - 1, t.getRightWall());
 						else
-							dungeon.setTile(newx + 1, newy - 1,
-									t.TOP_RIGHT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy - 1, t.TOP_RIGHT_OUTSIDE);
 						break;
 					case 1:// east
 						dungeon.setTile(newx, newy, t.DOOR);
@@ -142,8 +134,7 @@ public class DungeonGenerator {
 						if (dungeon.getTile(newx, newy - 1) == t.TOP_RIGHT_INSIDE)
 							dungeon.setTile(newx, newy - 1, t.getTopWall());
 						else
-							dungeon.setTile(newx, newy - 1,
-									t.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx, newy - 1, t.BOTTOM_LEFT_OUTSIDE);
 
 						if (dungeon.getTile(newx, newy + 1) == t.BOTTOM_RIGHT_INSIDE)
 							dungeon.setTile(newx, newy + 1, t.getBottomWall());
@@ -153,15 +144,12 @@ public class DungeonGenerator {
 						if (dungeon.getTile(newx + 1, newy - 1) == t.TOP_LEFT_INSIDE)
 							dungeon.setTile(newx + 1, newy - 1, t.getTopWall());
 						else
-							dungeon.setTile(newx + 1, newy - 1,
-									t.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy - 1, t.BOTTOM_RIGHT_OUTSIDE);
 
 						if (dungeon.getTile(newx + 1, newy + 1) == t.BOTTOM_LEFT_INSIDE)
-							dungeon.setTile(newx + 1, newy + 1,
-									t.getBottomWall());
+							dungeon.setTile(newx + 1, newy + 1, t.getBottomWall());
 						else
-							dungeon.setTile(newx + 1, newy + 1,
-									t.TOP_LEFT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy + 1, t.TOP_LEFT_OUTSIDE);
 
 						break;
 					case 2:
@@ -180,17 +168,14 @@ public class DungeonGenerator {
 							dungeon.setTile(newx - 1, newy, t.TOP_LEFT_OUTSIDE);
 						// Other side
 						if (dungeon.getTile(newx - 1, newy + 1) == t.TOP_RIGHT_INSIDE) // RIGHT
-							dungeon.setTile(newx - 1, newy + 1,
-									t.getRightWall());
+							dungeon.setTile(newx - 1, newy + 1, t.getRightWall());
 						else
-							dungeon.setTile(newx - 1, newy + 1,
-									t.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy + 1, t.BOTTOM_RIGHT_OUTSIDE);
 
 						if (dungeon.getTile(newx + 1, newy + 1) == t.TOP_LEFT_INSIDE) // LEFT
 							dungeon.setTile(newx + 1, newy + 1, t.getLeftWall());
 						else
-							dungeon.setTile(newx + 1, newy + 1,
-									t.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy + 1, t.BOTTOM_LEFT_OUTSIDE);
 						break;
 					case 3:// west
 						dungeon.setTile(newx, newy, t.DOOR);
@@ -205,21 +190,17 @@ public class DungeonGenerator {
 						if (dungeon.getTile(newx, newy - 1) == t.TOP_LEFT_INSIDE)
 							dungeon.setTile(newx, newy - 1, t.getTopWall());
 						else
-							dungeon.setTile(newx, newy - 1,
-									t.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx, newy - 1, t.BOTTOM_RIGHT_OUTSIDE);
 						// Other side
 						if (dungeon.getTile(newx - 1, newy + 1) == t.TOP_RIGHT_INSIDE)
 							dungeon.setTile(newx - 1, newy + 1, t.getTopWall());
 						else
-							dungeon.setTile(newx - 1, newy + 1,
-									t.TOP_RIGHT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy + 1, t.TOP_RIGHT_OUTSIDE);
 
 						if (dungeon.getTile(newx - 1, newy - 1) == t.BOTTOM_RIGHT_INSIDE)
-							dungeon.setTile(newx - 1, newy - 1,
-									t.getBottomWall());
+							dungeon.setTile(newx - 1, newy - 1, t.getBottomWall());
 						else
-							dungeon.setTile(newx - 1, newy - 1,
-									t.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy - 1, t.BOTTOM_LEFT_OUTSIDE);
 
 						break;
 					}
@@ -228,8 +209,7 @@ public class DungeonGenerator {
 		}
 	}
 
-	private static boolean makeRoom(int x, int y, int xlength, int ylength,
-			int direction) {
+	private static boolean makeRoom(int x, int y, int xlength, int ylength, int direction) {
 		int xlen = MathUtils.random(6, xlength);
 		int ylen = MathUtils.random(6, ylength);
 		Room room = new Room();
@@ -308,12 +288,10 @@ public class DungeonGenerator {
 							dungeon.setTile(xtemp, ytemp, t.TOP_LEFT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_LEFT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_LEFT_INSIDE);
 						}
 					} else if (xtemp == (x + xlen - 1)) {
 						dungeon.setTile(xtemp, ytemp, t.getRightWall());
@@ -322,12 +300,10 @@ public class DungeonGenerator {
 							dungeon.setTile(xtemp, ytemp, t.TOP_RIGHT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_RIGHT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_RIGHT_INSIDE);
 						}
 					} else if (ytemp == (y - ylen / 2)) {
 						dungeon.setTile(xtemp, ytemp, t.getTopWall());
@@ -415,12 +391,10 @@ public class DungeonGenerator {
 							dungeon.setTile(xtemp, ytemp, t.TOP_RIGHT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_RIGHT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_RIGHT_INSIDE);
 						}
 					} else if (xtemp == (x - xlen + 1)) {
 						dungeon.setTile(xtemp, ytemp, t.getLeftWall());
@@ -429,12 +403,10 @@ public class DungeonGenerator {
 							dungeon.setTile(xtemp, ytemp, t.TOP_LEFT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_LEFT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp,
-										t.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, t.BOTTOM_LEFT_INSIDE);
 						}
 					} else if (ytemp == (y - ylen / 2)) {
 						dungeon.setTile(xtemp, ytemp, t.getTopWall());
