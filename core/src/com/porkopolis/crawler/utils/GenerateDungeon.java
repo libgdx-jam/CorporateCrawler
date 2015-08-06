@@ -38,9 +38,9 @@ public class GenerateDungeon {
 		}
 		byte dungeonCount = -1;
 		for (Leaf r : rectangles) {
-			if (r.dungeon == null)
+			if (r.room == null)
 				continue;
-			Leaf d = r.dungeon;
+			Leaf d = r.room;
 			dungeonCount++;
 			for (int i = 0; i < d.height; i++) {
 				for (int j = 0; j < d.width; j++)
@@ -57,6 +57,28 @@ public class GenerateDungeon {
 			}
 			System.out.println();
 		}
+	}
+
+	public void generateDungeon() {
+		ArrayList<Leaf> rectangles = new ArrayList<Leaf>(); // flat rectangle
+		// store to help
+		// pick a random one
+		Leaf root = new Leaf(0, 0, 30, 60); //
+		rectangles.add(root); // populate rectangle store with root area
+		while (rectangles.size() < 38) { // this will give us 20? leaf areas
+			int splitIdx = rnd.nextInt(rectangles.size()); // choose a random
+			// element
+			Leaf toSplit = rectangles.get(splitIdx);
+			if (toSplit.split()) { // attempt to split
+				rectangles.add(toSplit.leftChild);
+				rectangles.add(toSplit.rightChild);
+			}
+
+		}
+		root.generateDungeon(); // generate dungeons
+
+		printDungeons(rectangles); // this is just to test the output
+
 	}
 
 }

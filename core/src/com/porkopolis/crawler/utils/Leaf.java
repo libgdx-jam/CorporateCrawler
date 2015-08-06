@@ -14,7 +14,7 @@ public class Leaf {
 
 	Leaf leftChild;
 	Leaf rightChild;
-	Leaf dungeon;
+	Leaf room;
 
 	public Leaf(int top, int left, int width, int height) {
 		this.x = top;
@@ -60,7 +60,7 @@ public class Leaf {
 
 			int dungeonWidth = Math.max(rnd.nextInt(width - dungeonLeft), MIN_SIZE);
 
-			dungeon = new Leaf(x + dungeonTop, y + dungeonLeft, dungeonWidth, dungeonHeight);
+			room = new Leaf(x + dungeonTop, y + dungeonLeft, dungeonWidth, dungeonHeight);
 		}
 	}
 
