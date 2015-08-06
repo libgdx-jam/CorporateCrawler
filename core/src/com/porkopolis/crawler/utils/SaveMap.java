@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class SaveMap {
 	public static void saveDungeon(Dungeon dungeon, String fileName) {
+		dungeon.printTileLayer();
 		CreatePolyline q = new CreatePolyline();
 		CreatePolyline.createPolyline(dungeon);
 		String dungeonFile = ""

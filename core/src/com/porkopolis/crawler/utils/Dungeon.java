@@ -132,6 +132,26 @@ public class Dungeon {
 	public Tileset getTitleSet() {
 		return t;
 	}
+	public void printTileLayer(){
+		for(int i = 0; i < tileLayer.length; i++){
+			if (tileLayer[i] < 10)
+				System.out.print("0");
+			
+			System.out.print(tileLayer[i]+", ");
+			
+			if(i % 100 == 0)
+				System.out.print("\n");
+		}
+	}
+	
+	public void CollisionLayerTileLayer(){
+		for(int i = 0; i < collisionLayer.length; i++){
+			if(i % 100 == 0)
+				System.out.print("\n");
+			
+			System.out.print(collisionLayer[i]+", ");		
+		}
+	}
 
 	public void autoTile() {
 		int x, y = 0;
