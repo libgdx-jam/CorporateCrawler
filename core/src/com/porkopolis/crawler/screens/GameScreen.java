@@ -20,16 +20,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.Assets;
-import com.porkopolis.crawler.DungeonManager;
 import com.porkopolis.crawler.EntityManager;
 import com.porkopolis.crawler.GameManager;
 import com.porkopolis.crawler.entitys.player.Player;
 import com.porkopolis.crawler.gui.GUI;
 import com.porkopolis.crawler.input.DesktopInputHandler;
-import com.porkopolis.crawler.utils.Dungeon;
-import com.porkopolis.crawler.utils.DungeonGenerator;
-import com.porkopolis.crawler.utils.DungeonGenerator2;
 import com.porkopolis.crawler.utils.BSPGenerator;
+import com.porkopolis.crawler.utils.Dungeon;
 import com.porkopolis.crawler.utils.MapBodyBuilder;
 import com.porkopolis.crawler.utils.SaveMap;
 
@@ -56,20 +53,18 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		float w = 32;
-		float h = 20;
+		float w = 320;
+		float h = 200;
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w, h);
 		camera.translate(50, 50);
 		camera.update();
 
-		DungeonManager.dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
-		// DungeonGenerator.createDungeon(DungeonManager.dungeon);
-		BSPGenerator generator = new BSPGenerator();
+		Dungeon dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
+		BSPGenerator generator = new BSPGenerator(dungeon);
 		generator.generateDungeon();
-
-		SaveMap.saveDungeon(DungeonManager.dungeon, "test.tmx");
+		SaveMap.saveDungeon(dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 0.03125f);

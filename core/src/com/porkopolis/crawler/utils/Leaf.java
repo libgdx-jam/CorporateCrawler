@@ -16,9 +16,9 @@ public class Leaf {
 	Leaf rightChild;
 	Leaf room;
 
-	public Leaf(int top, int left, int width, int height) {
-		this.x = top;
-		this.y = left;
+	public Leaf(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
 		this.width = width;
 		this.height = height;
 	}
@@ -62,6 +62,11 @@ public class Leaf {
 
 			room = new Leaf(x + dungeonTop, y + dungeonLeft, dungeonWidth, dungeonHeight);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return x + "  " + y + " " + width + " " + height + " room == null: " + (room == null);
 	}
 
 }

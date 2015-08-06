@@ -11,7 +11,7 @@ public class Dungeon {
 	private int[][] rooms;
 
 	private String tileSet;
-	private TileSet t = new TileSet();
+	private Tileset t = new Tileset();
 
 	public Dungeon(int xSize, int ySize, int objects, String tileSheet) {
 		this.tileSet = tileSheet;
@@ -92,7 +92,7 @@ public class Dungeon {
 		return tileSet;
 	}
 
-	public TileSet getTitleSet() {
+	public Tileset getTitleSet() {
 		return t;
 	}
 

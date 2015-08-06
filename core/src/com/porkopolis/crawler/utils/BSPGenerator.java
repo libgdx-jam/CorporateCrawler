@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.porkopolis.crawler.DungeonManager;
 
 public class BSPGenerator {
 
-	private static Random rnd = new Random();
+	private Random rnd = new Random();
+	private Dungeon dungeon;
+	Tileset tileset = new Tileset();
+
+	public BSPGenerator(Dungeon dungeon) {
+		this.dungeon = dungeon;
+	}
 
 	public void generateDungeon() {
 		ArrayList<Leaf> rectangles = new ArrayList<Leaf>();
-		Leaf root = new Leaf(0, 0, DungeonManager.dungeon.getxSize(), DungeonManager.dungeon.getySize()); //
+		Leaf root = new Leaf(0, 0, dungeon.getxSize(), dungeon.getySize()); //
 		rectangles.add(root); // populate rectangle store with root area
-		while (rectangles.size() < 19) { // this will give us 20? leaf areas
+		while (rectangles.size() < 19) { // this will give us 10? leaf areas
 			int splitIdx = rnd.nextInt(rectangles.size()); // choose a random
 			// element
 			Leaf toSplit = rectangles.get(splitIdx);
@@ -26,7 +31,8 @@ public class BSPGenerator {
 		}
 		root.generateDungeon(); // generate dungeons
 
-		convert(DungeonManager.dungeon, rectangles);
+		convert(dungeon, rectangles);
+		printDungeons(rectangles);
 
 	}
 
@@ -35,71 +41,54 @@ public class BSPGenerator {
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
 				if (y == 0) {
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				} else if (y == dungeon.getySize() - 1) {
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 
 				} else if (x == 0) {
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				} else if (x == dungeon.getxSize() - 1) {
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				} else {
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_1);
+					dungeon.setTile(x, y, tileset.VOID_1);
 				}
 				dungeon.setCollision(x, y, false);
 			}
 		}
 
-		Gdx.app.log(BSPGenerator.class.getSimpleName(), "Number of rooms created: " + rectangles.size());
-
-		for (Leaf leaf : rectangles) {
-			Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 1");
+		Gdx.app.log(BSPGenerator.class.getSimpleName(), "Number of leafs created: " + rectangles.size());
+		int leafCount = 0;
+		for (int l = 0; l < rectangles.size(); l++) {
+			// Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached room @ "
+			// + leaf.x + " " + leaf.y);
+			Leaf leaf = rectangles.get(l);
 			if (leaf.room == null) {
-				Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 2");
+				Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached leaf " + leafCount++);
 				continue;
 			}
-			Leaf d = leaf.room;
+			Leaf roomLeaf = leaf.room;
+			Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 3 @ " + roomLeaf.toString());
 
-			for (int i = d.x; i < d.height; i++) {
-				for (int j = d.y; j < d.width; j++) {
-					DungeonManager.dungeon.setTile(i, j, DungeonManager.tileset.getFloor1());
-					dungeon.setCollision(i, j, true);
-					Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached 3");
+			for (int leafHeight = roomLeaf.y; leafHeight < roomLeaf.height; leafHeight++) {
+				Gdx.app.log(BSPGenerator.class.getSimpleName(), "test");
+
+				for (int leafWidth = roomLeaf.x; leafWidth < roomLeaf.width; leafWidth++) {
+					Gdx.app.log(BSPGenerator.class.getSimpleName(), "test");
+
+					Gdx.app.log(BSPGenerator.class.getSimpleName(), leafHeight + " " + leafWidth + " " + roomLeaf.toString());
+					dungeon.setTile(leafWidth, leafHeight, tileset.getFloor1());
+					dungeon.setCollision(leafWidth, leafHeight, true);
+					Gdx.app.log(BSPGenerator.class.getSimpleName(), "Set collision @" + leafWidth + " " + leafHeight);
 
 				}
 			}
+
 		}
 
 	}
 
-	private static void printDungeons(ArrayList<Leaf> Leafs) {
-		byte[][] lines = new byte[60][];
-		for (int i = 0; i < 60; i++) {
-			lines[i] = new byte[120];
-			for (int j = 0; j < 120; j++)
-				lines[i][j] = -1;
-		}
-		byte dungeonCount = -1;
-		for (Leaf r : Leafs) {
-			if (r.room == null)
-				continue;
-			Leaf d = r.room;
-			dungeonCount++;
-			for (int i = 0; i < d.height; i++) {
-				for (int j = 0; j < d.width; j++)
-
-					lines[d.y + i][d.x + j] = dungeonCount;
-			}
-		}
-		for (int i = 0; i < 60; i++) {
-			for (int j = 0; j < 120; j++) {
-				if (lines[i][j] == -1)
-					System.out.print('.');
-				else
-					System.out.print(lines[i][j]);
-			}
-			System.out.println();
-		}
+	private void printDungeons(ArrayList<Leaf> Leafs) {
+		System.out.print(dungeon.getTileLayer().toString());
 	}
 
 }

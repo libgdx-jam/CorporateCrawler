@@ -2,7 +2,7 @@ package com.porkopolis.crawler.utils;
 
 import com.badlogic.gdx.math.MathUtils;
 
-public class TileSet {
+public class Tileset {
 	// a list over tile types we're using
 	final public int VOID_1 = 1;
 	final public int VOID_2 = 2;

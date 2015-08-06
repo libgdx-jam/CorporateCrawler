@@ -1,15 +1,15 @@
 package com.porkopolis.crawler.utils;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.porkopolis.crawler.DungeonManager;
 
 public class DungeonGenerator {
 
-	private static Dungeon dungeon;
+	private Dungeon dungeon;
+	private Tileset tileset = new Tileset();
 
-	public static void createDungeon(Dungeon dungeon) {
-		DungeonGenerator.dungeon = dungeon;
-		DungeonManager.tileset = dungeon.getTitleSet();
+	public void createDungeon(Dungeon dungeon) {
+		this.dungeon = dungeon;
+		tileset = dungeon.getTitleSet();
 
 		int newx = 0;
 		int xmod = 0;
@@ -21,15 +21,15 @@ public class DungeonGenerator {
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
 				if (y == 0)
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				else if (y == dungeon.getySize() - 1)
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				else if (x == 0)
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				else if (x == dungeon.getxSize() - 1)
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_2);
+					dungeon.setTile(x, y, tileset.VOID_2);
 				else
-					dungeon.setTile(x, y, DungeonManager.tileset.VOID_1);
+					dungeon.setTile(x, y, tileset.VOID_1);
 			}
 		}
 
@@ -39,7 +39,7 @@ public class DungeonGenerator {
 			}
 		}
 
-		DungeonGenerator.makeRoom(dungeon.getxSize() / 2, dungeon.getySize() / 2, 8, 6, MathUtils.random(0, 3));
+		makeRoom(dungeon.getxSize() / 2, dungeon.getySize() / 2, 8, 6, MathUtils.random(0, 3));
 
 		currentFeatures = 1;
 
@@ -80,13 +80,13 @@ public class DungeonGenerator {
 						ymod = 0;
 					}
 					if (validTile > -1) {
-						if (dungeon.getTile(newx, newy + 1) == DungeonManager.tileset.DOOR) // north
+						if (dungeon.getTile(newx, newy + 1) == tileset.DOOR) // north
 							validTile = -1;
-						else if (dungeon.getTile(newx - 1, newy) == DungeonManager.tileset.DOOR) // east
+						else if (dungeon.getTile(newx - 1, newy) == tileset.DOOR) // east
 							validTile = -1;
-						else if (dungeon.getTile(newx, newy - 1) == DungeonManager.tileset.DOOR) // south
+						else if (dungeon.getTile(newx, newy - 1) == tileset.DOOR) // south
 							validTile = -1;
-						else if (dungeon.getTile(newx + 1, newy) == DungeonManager.tileset.DOOR) // west
+						else if (dungeon.getTile(newx + 1, newy) == tileset.DOOR) // west
 							validTile = -1;
 					}
 					if (validTile > -1)
@@ -100,105 +100,105 @@ public class DungeonGenerator {
 
 					switch (validTile) {
 					case 0:// north
-						dungeon.setTile(newx, newy, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx, newy, tileset.DOOR);
 						dungeon.setCollision(newx, newy, false);
-						dungeon.setTile(newx, newy - 1, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx, newy - 1, tileset.DOOR);
 						dungeon.setCollision(newx, newy - 1, false);
-						if (dungeon.getTile(newx - 1, newy) == DungeonManager.tileset.TOP_LEFT_INSIDE)
-							dungeon.setTile(newx - 1, newy, DungeonManager.tileset.getLeftWall());
+						if (dungeon.getTile(newx - 1, newy) == tileset.TOP_LEFT_INSIDE)
+							dungeon.setTile(newx - 1, newy, tileset.getLeftWall());
 						else
-							dungeon.setTile(newx - 1, newy, DungeonManager.tileset.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy, tileset.BOTTOM_RIGHT_OUTSIDE);
 
-						if (dungeon.getTile(newx + 1, newy) == DungeonManager.tileset.TOP_RIGHT_INSIDE)
-							dungeon.setTile(newx + 1, newy, DungeonManager.tileset.getRightWall());
+						if (dungeon.getTile(newx + 1, newy) == tileset.TOP_RIGHT_INSIDE)
+							dungeon.setTile(newx + 1, newy, tileset.getRightWall());
 						else
-							dungeon.setTile(newx + 1, newy, DungeonManager.tileset.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy, tileset.BOTTOM_LEFT_OUTSIDE);
 						// Other side
-						if (dungeon.getTile(newx - 1, newy - 1) == DungeonManager.tileset.BOTTOM_LEFT_INSIDE)
-							dungeon.setTile(newx - 1, newy - 1, DungeonManager.tileset.getLeftWall());
+						if (dungeon.getTile(newx - 1, newy - 1) == tileset.BOTTOM_LEFT_INSIDE)
+							dungeon.setTile(newx - 1, newy - 1, tileset.getLeftWall());
 						else
-							dungeon.setTile(newx - 1, newy - 1, DungeonManager.tileset.TOP_LEFT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy - 1, tileset.TOP_LEFT_OUTSIDE);
 
-						if (dungeon.getTile(newx + 1, newy - 1) == DungeonManager.tileset.BOTTOM_RIGHT_INSIDE)
-							dungeon.setTile(newx + 1, newy - 1, DungeonManager.tileset.getRightWall());
+						if (dungeon.getTile(newx + 1, newy - 1) == tileset.BOTTOM_RIGHT_INSIDE)
+							dungeon.setTile(newx + 1, newy - 1, tileset.getRightWall());
 						else
-							dungeon.setTile(newx + 1, newy - 1, DungeonManager.tileset.TOP_RIGHT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy - 1, tileset.TOP_RIGHT_OUTSIDE);
 						break;
 					case 1:// east
-						dungeon.setTile(newx, newy, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx, newy, tileset.DOOR);
 						dungeon.setCollision(newx, newy, false);
-						dungeon.setTile(newx + 1, newy, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx + 1, newy, tileset.DOOR);
 						dungeon.setCollision(newx + 1, newy, false);
-						if (dungeon.getTile(newx, newy - 1) == DungeonManager.tileset.TOP_RIGHT_INSIDE)
-							dungeon.setTile(newx, newy - 1, DungeonManager.tileset.getTopWall());
+						if (dungeon.getTile(newx, newy - 1) == tileset.TOP_RIGHT_INSIDE)
+							dungeon.setTile(newx, newy - 1, tileset.getTopWall());
 						else
-							dungeon.setTile(newx, newy - 1, DungeonManager.tileset.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx, newy - 1, tileset.BOTTOM_LEFT_OUTSIDE);
 
-						if (dungeon.getTile(newx, newy + 1) == DungeonManager.tileset.BOTTOM_RIGHT_INSIDE)
-							dungeon.setTile(newx, newy + 1, DungeonManager.tileset.getBottomWall());
+						if (dungeon.getTile(newx, newy + 1) == tileset.BOTTOM_RIGHT_INSIDE)
+							dungeon.setTile(newx, newy + 1, tileset.getBottomWall());
 						else
-							dungeon.setTile(newx, newy + 1, DungeonManager.tileset.TOP_RIGHT_OUTSIDE);
+							dungeon.setTile(newx, newy + 1, tileset.TOP_RIGHT_OUTSIDE);
 						// Other side
-						if (dungeon.getTile(newx + 1, newy - 1) == DungeonManager.tileset.TOP_LEFT_INSIDE)
-							dungeon.setTile(newx + 1, newy - 1, DungeonManager.tileset.getTopWall());
+						if (dungeon.getTile(newx + 1, newy - 1) == tileset.TOP_LEFT_INSIDE)
+							dungeon.setTile(newx + 1, newy - 1, tileset.getTopWall());
 						else
-							dungeon.setTile(newx + 1, newy - 1, DungeonManager.tileset.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy - 1, tileset.BOTTOM_RIGHT_OUTSIDE);
 
-						if (dungeon.getTile(newx + 1, newy + 1) == DungeonManager.tileset.BOTTOM_LEFT_INSIDE)
-							dungeon.setTile(newx + 1, newy + 1, DungeonManager.tileset.getBottomWall());
+						if (dungeon.getTile(newx + 1, newy + 1) == tileset.BOTTOM_LEFT_INSIDE)
+							dungeon.setTile(newx + 1, newy + 1, tileset.getBottomWall());
 						else
-							dungeon.setTile(newx + 1, newy + 1, DungeonManager.tileset.TOP_LEFT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy + 1, tileset.TOP_LEFT_OUTSIDE);
 
 						break;
 					case 2:
-						dungeon.setTile(newx, newy, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx, newy, tileset.DOOR);
 						dungeon.setCollision(newx, newy, false);
-						dungeon.setTile(newx, newy + 1, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx, newy + 1, tileset.DOOR);
 						dungeon.setCollision(newx, newy + 1, false);
-						if (dungeon.getTile(newx + 1, newy) == DungeonManager.tileset.BOTTOM_RIGHT_INSIDE) // RIGHT
-							dungeon.setTile(newx + 1, newy, DungeonManager.tileset.getRightWall());
+						if (dungeon.getTile(newx + 1, newy) == tileset.BOTTOM_RIGHT_INSIDE) // RIGHT
+							dungeon.setTile(newx + 1, newy, tileset.getRightWall());
 						else
-							dungeon.setTile(newx + 1, newy, DungeonManager.tileset.TOP_RIGHT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy, tileset.TOP_RIGHT_OUTSIDE);
 
-						if (dungeon.getTile(newx - 1, newy) == DungeonManager.tileset.BOTTOM_LEFT_INSIDE) // LEFT
-							dungeon.setTile(newx - 1, newy, DungeonManager.tileset.getLeftWall());
+						if (dungeon.getTile(newx - 1, newy) == tileset.BOTTOM_LEFT_INSIDE) // LEFT
+							dungeon.setTile(newx - 1, newy, tileset.getLeftWall());
 						else
-							dungeon.setTile(newx - 1, newy, DungeonManager.tileset.TOP_LEFT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy, tileset.TOP_LEFT_OUTSIDE);
 						// Other side
-						if (dungeon.getTile(newx - 1, newy + 1) == DungeonManager.tileset.TOP_RIGHT_INSIDE) // RIGHT
-							dungeon.setTile(newx - 1, newy + 1, DungeonManager.tileset.getRightWall());
+						if (dungeon.getTile(newx - 1, newy + 1) == tileset.TOP_RIGHT_INSIDE) // RIGHT
+							dungeon.setTile(newx - 1, newy + 1, tileset.getRightWall());
 						else
-							dungeon.setTile(newx - 1, newy + 1, DungeonManager.tileset.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy + 1, tileset.BOTTOM_RIGHT_OUTSIDE);
 
-						if (dungeon.getTile(newx + 1, newy + 1) == DungeonManager.tileset.TOP_LEFT_INSIDE) // LEFT
-							dungeon.setTile(newx + 1, newy + 1, DungeonManager.tileset.getLeftWall());
+						if (dungeon.getTile(newx + 1, newy + 1) == tileset.TOP_LEFT_INSIDE) // LEFT
+							dungeon.setTile(newx + 1, newy + 1, tileset.getLeftWall());
 						else
-							dungeon.setTile(newx + 1, newy + 1, DungeonManager.tileset.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx + 1, newy + 1, tileset.BOTTOM_LEFT_OUTSIDE);
 						break;
 					case 3:// west
-						dungeon.setTile(newx, newy, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx, newy, tileset.DOOR);
 						dungeon.setCollision(newx, newy, false);
-						dungeon.setTile(newx - 1, newy, DungeonManager.tileset.DOOR);
+						dungeon.setTile(newx - 1, newy, tileset.DOOR);
 						dungeon.setCollision(newx - 1, newy, false);
-						if (dungeon.getTile(newx, newy + 1) == DungeonManager.tileset.BOTTOM_LEFT_INSIDE)
-							dungeon.setTile(newx, newy + 1, DungeonManager.tileset.getBottomWall());
+						if (dungeon.getTile(newx, newy + 1) == tileset.BOTTOM_LEFT_INSIDE)
+							dungeon.setTile(newx, newy + 1, tileset.getBottomWall());
 						else
-							dungeon.setTile(newx, newy + 1, DungeonManager.tileset.TOP_LEFT_OUTSIDE);
+							dungeon.setTile(newx, newy + 1, tileset.TOP_LEFT_OUTSIDE);
 
-						if (dungeon.getTile(newx, newy - 1) == DungeonManager.tileset.TOP_LEFT_INSIDE)
-							dungeon.setTile(newx, newy - 1, DungeonManager.tileset.getTopWall());
+						if (dungeon.getTile(newx, newy - 1) == tileset.TOP_LEFT_INSIDE)
+							dungeon.setTile(newx, newy - 1, tileset.getTopWall());
 						else
-							dungeon.setTile(newx, newy - 1, DungeonManager.tileset.BOTTOM_RIGHT_OUTSIDE);
+							dungeon.setTile(newx, newy - 1, tileset.BOTTOM_RIGHT_OUTSIDE);
 						// Other side
-						if (dungeon.getTile(newx - 1, newy + 1) == DungeonManager.tileset.TOP_RIGHT_INSIDE)
-							dungeon.setTile(newx - 1, newy + 1, DungeonManager.tileset.getTopWall());
+						if (dungeon.getTile(newx - 1, newy + 1) == tileset.TOP_RIGHT_INSIDE)
+							dungeon.setTile(newx - 1, newy + 1, tileset.getTopWall());
 						else
-							dungeon.setTile(newx - 1, newy + 1, DungeonManager.tileset.TOP_RIGHT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy + 1, tileset.TOP_RIGHT_OUTSIDE);
 
-						if (dungeon.getTile(newx - 1, newy - 1) == DungeonManager.tileset.BOTTOM_RIGHT_INSIDE)
-							dungeon.setTile(newx - 1, newy - 1, DungeonManager.tileset.getBottomWall());
+						if (dungeon.getTile(newx - 1, newy - 1) == tileset.BOTTOM_RIGHT_INSIDE)
+							dungeon.setTile(newx - 1, newy - 1, tileset.getBottomWall());
 						else
-							dungeon.setTile(newx - 1, newy - 1, DungeonManager.tileset.BOTTOM_LEFT_OUTSIDE);
+							dungeon.setTile(newx - 1, newy - 1, tileset.BOTTOM_LEFT_OUTSIDE);
 
 						break;
 					}
@@ -207,7 +207,7 @@ public class DungeonGenerator {
 		}
 	}
 
-	private static boolean makeRoom(int x, int y, int xlength, int ylength, int direction) {
+	private boolean makeRoom(int x, int y, int xlength, int ylength, int direction) {
 		int xlen = MathUtils.random(6, xlength);
 		int ylen = MathUtils.random(6, ylength);
 		Room room = new Room();
@@ -224,7 +224,7 @@ public class DungeonGenerator {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
 					if (xtemp < 0 || xtemp > dungeon.getxSize())
 						return false;
-					if (dungeon.getTile(xtemp, ytemp) != DungeonManager.tileset.VOID_1)
+					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
 				}
 			}
@@ -235,28 +235,28 @@ public class DungeonGenerator {
 			for (int ytemp = y; ytemp > (y - ylen); ytemp--) {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
 					if (xtemp == (x - xlen / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getLeftWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getLeftWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == (y - (ylen - 1)))
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_LEFT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_LEFT_INSIDE);
 						if (ytemp == y)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_LEFT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_LEFT_INSIDE);
 					} else if (xtemp == (x + (xlen - 1) / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getRightWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getRightWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == (y - (ylen - 1)))
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_RIGHT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_RIGHT_INSIDE);
 						if (ytemp == y)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_RIGHT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_RIGHT_INSIDE);
 					} else if (ytemp == y) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getBottomWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else if (ytemp == (y - ylen + 1)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getTopWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getTopWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getFloor1());
-						room.addTile(xtemp, ytemp, DungeonManager.tileset.getFloor1());
+						dungeon.setTile(xtemp, ytemp, tileset.getFloor1());
+						room.addTile(xtemp, ytemp, tileset.getFloor1());
 					}
 				}
 			}
@@ -269,7 +269,7 @@ public class DungeonGenerator {
 				for (int xtemp = x; xtemp < (x + xlen); xtemp++) {
 					if (xtemp < 0 || xtemp > dungeon.getxSize())
 						return false;
-					if (dungeon.getTile(xtemp, ytemp) != DungeonManager.tileset.VOID_1)
+					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
 				}
 			}
@@ -280,38 +280,38 @@ public class DungeonGenerator {
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
 				for (int xtemp = x; xtemp < (x + xlen); xtemp++) {
 					if (xtemp == x) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getLeftWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getLeftWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == y - ylen / 2)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_LEFT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_LEFT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_LEFT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_LEFT_INSIDE);
 						}
 					} else if (xtemp == (x + xlen - 1)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getRightWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getRightWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == y - ylen / 2)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_RIGHT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_RIGHT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_RIGHT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_RIGHT_INSIDE);
 						}
 					} else if (ytemp == (y - ylen / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getTopWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getTopWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else if (ytemp == (y + (ylen - 1) / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getBottomWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getFloor2());
-						room.addTile(xtemp, ytemp, DungeonManager.tileset.getFloor2());
+						dungeon.setTile(xtemp, ytemp, tileset.getFloor2());
+						room.addTile(xtemp, ytemp, tileset.getFloor2());
 					}
 				}
 			}
@@ -325,7 +325,7 @@ public class DungeonGenerator {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
 					if (xtemp < 0 || xtemp > dungeon.getxSize())
 						return false;
-					if (dungeon.getTile(xtemp, ytemp) != DungeonManager.tileset.VOID_1)
+					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
 				}
 			}
@@ -336,28 +336,28 @@ public class DungeonGenerator {
 			for (int ytemp = y; ytemp < (y + ylen); ytemp++) {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
 					if (xtemp == (x - xlen / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getLeftWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getLeftWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == y)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_LEFT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_LEFT_INSIDE);
 						if (ytemp == (y + (ylen - 1)))
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_LEFT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_LEFT_INSIDE);
 					} else if (xtemp == (x + (xlen - 1) / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getRightWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getRightWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == y)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_RIGHT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_RIGHT_INSIDE);
 						if (ytemp == (y + (ylen - 1)))
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_RIGHT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_RIGHT_INSIDE);
 					} else if (ytemp == y) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getTopWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getTopWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else if (ytemp == (y + ylen - 1)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getBottomWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getFloor3());
-						room.addTile(xtemp, ytemp, DungeonManager.tileset.getFloor3());
+						dungeon.setTile(xtemp, ytemp, tileset.getFloor3());
+						room.addTile(xtemp, ytemp, tileset.getFloor3());
 					}
 				}
 			}
@@ -372,7 +372,7 @@ public class DungeonGenerator {
 				for (int xtemp = x; xtemp > (x - xlen); xtemp--) {
 					if (xtemp < 0 || xtemp > dungeon.getxSize())
 						return false;
-					if (dungeon.getTile(xtemp, ytemp) != DungeonManager.tileset.VOID_1)
+					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
 				}
 			}
@@ -383,46 +383,43 @@ public class DungeonGenerator {
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
 				for (int xtemp = x; xtemp > (x - xlen); xtemp--) {
 					if (xtemp == x) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getRightWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getRightWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == y - ylen / 2)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_RIGHT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_RIGHT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_RIGHT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_RIGHT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_RIGHT_INSIDE);
 						}
 					} else if (xtemp == (x - xlen + 1)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getLeftWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getLeftWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 						if (ytemp == y - ylen / 2)
-							dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.TOP_LEFT_INSIDE);
+							dungeon.setTile(xtemp, ytemp, tileset.TOP_LEFT_INSIDE);
 						if (ylen % 2 == 0) {
 							if (ytemp == y + (ylen / 2) - 1)
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_LEFT_INSIDE);
 						} else {
 							if (ytemp == y + (ylen / 2))
-								dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.BOTTOM_LEFT_INSIDE);
+								dungeon.setTile(xtemp, ytemp, tileset.BOTTOM_LEFT_INSIDE);
 						}
 					} else if (ytemp == (y - ylen / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getTopWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getTopWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else if (ytemp == (y + (ylen - 1) / 2)) {
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getBottomWall());
+						dungeon.setTile(xtemp, ytemp, tileset.getBottomWall());
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else
-						dungeon.setTile(xtemp, ytemp, DungeonManager.tileset.getFloor4());
-					room.addTile(xtemp, ytemp, DungeonManager.tileset.getFloor4());
+						dungeon.setTile(xtemp, ytemp, tileset.getFloor4());
+					room.addTile(xtemp, ytemp, tileset.getFloor4());
 
 				}
 			}
 
 			break;
-		}
-		if (room != null) {
-			DungeonManager.addRoom(room);
 		}
 		return true;
 	}

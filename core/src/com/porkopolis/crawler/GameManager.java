@@ -14,12 +14,9 @@ public class GameManager {
 
 	public static InventoryManager inventory;
 
-	public static DungeonManager dungeonManager;
-
 	public static void init(Game game) {
 		GameManager.game = game;
 		world = new World(new Vector2(0, 0), true);
-		dungeonManager = new DungeonManager();
 	}
 
 	public static void setScreen(Screen screen) {
