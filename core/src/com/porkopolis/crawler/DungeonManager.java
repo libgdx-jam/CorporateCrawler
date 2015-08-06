@@ -3,12 +3,15 @@ package com.porkopolis.crawler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.porkopolis.crawler.utils.Dungeon;
+import com.porkopolis.crawler.utils.DungeonGenerator;
 import com.porkopolis.crawler.utils.Room;
 import com.porkopolis.crawler.utils.Tile;
+import com.porkopolis.crawler.utils.TileSet;
 
 public class DungeonManager {
 	private static Array<Room> rooms = new Array<Room>();
 	public static Dungeon dungeon;
+	public static TileSet tileset = new TileSet();
 
 	public DungeonManager() {
 	}
@@ -43,4 +46,5 @@ public class DungeonManager {
 
 		throw new NullPointerException("Could not find a free space anywhere!");
 	}
+
 }
