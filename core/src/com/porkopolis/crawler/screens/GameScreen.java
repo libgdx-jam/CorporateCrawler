@@ -64,7 +64,7 @@ public class GameScreen implements Screen {
 		Dungeon dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
 		BSPGenerator generator = new BSPGenerator(dungeon);
 		generator.generateDungeon();
-		dungeon.autoTile();
+	//	dungeon.autoTile();
 		SaveMap.saveDungeon(dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");

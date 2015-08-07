@@ -8,8 +8,6 @@ public class Dungeon {
 	private int ySize;
 	private int objects;
 
-	private int[][] rooms;
-
 	private String tileSet;
 	private Tileset t = new Tileset();
 
@@ -28,21 +26,16 @@ public class Dungeon {
 		tileLayer = new int[xSize * ySize];
 		collisionLayer = new boolean[xSize * ySize];
 		entityLayer = new int[xSize * ySize];
-		rooms = new int[1000][xSize * ySize];
 
 	}
 
 	public void setTile(int x, int y, int celltype) {
-		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			tileLayer[x + xSize * y] = celltype;
+		if(coverTo1d(x, y) < xSize * ySize){
+			tileLayer[coverTo1d(x, y)] = celltype;
 		}
-	}
-
-	public int getTile(int x, int y) {
-		return tileLayer[x + xSize * y];
-	}
-	public Tileset getTileSheet(){
-		return t;
+		else{
+			System.out.println("Dungeon.setTile, Array out of bounds: "+coverTo1d(x, y)+ " x: " + x + " y: " + y);
+		}
 	}
 	public boolean isFloor(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
@@ -91,7 +84,7 @@ public class Dungeon {
 	}
 	public boolean isVoid(int x, int y) {
 		if((x > 0 && x < xSize)&&(y > 0 && y < ySize)){
-			if (getTile(x, y) == t.VOID_1 || getTile(x, y) == t.VOID_2) return true;
+			if (getTile(x, y) == t.VOID_1 || getTile(x, y) == t.VOID_2 || getTile(x, y) == 0) return true;
 			else return false;
 		}
 		return false;
@@ -99,6 +92,13 @@ public class Dungeon {
 
 	public void setCollision(int x, int y, boolean i) {
 		collisionLayer[x + xSize * y] = i;
+	}
+	
+	public int getTile(int x, int y) {
+		return tileLayer[x + xSize * y];
+	}
+	public Tileset getTileSheet(){
+		return t;
 	}
 
 	public int getxSize() {
@@ -135,9 +135,9 @@ public class Dungeon {
 	public void printTileLayer(){
 		for(int i = 0; i < tileLayer.length; i++){
 			if (tileLayer[i] < 10)
-				System.out.print("X ");
+				System.out.print(".");
 			else
-			System.out.print("[]");
+			System.out.print("1");
 			
 			if(i % 100 == 0)
 				System.out.print("\n");
@@ -236,6 +236,9 @@ public class Dungeon {
 			}
 			
 		}
+	}
+	public int coverTo1d(int x, int y){
+		return x + (xSize * y);
 	}
 
 }
