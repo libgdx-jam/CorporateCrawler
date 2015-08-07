@@ -16,27 +16,24 @@ public class BSPGenerator {
 	}
 
 	public void generateDungeon() {
-		ArrayList<Leaf> rectangles = new ArrayList<Leaf>();
-		Leaf root = new Leaf(0, 0, dungeon.getxSize(), dungeon.getySize()); //
-		rectangles.add(root); // populate rectangle store with root area
-		while (rectangles.size() < 19) { // this will give us 10? leaf areas
-			int splitIdx = rnd.nextInt(rectangles.size()); // choose a random
-			// element
-			Leaf toSplit = rectangles.get(splitIdx);
-			if (toSplit.split()) { // attempt to split
-				rectangles.add(toSplit.leftChild);
-				rectangles.add(toSplit.rightChild);
-			}
+	       ArrayList<Leaf> Leafs = new ArrayList<Leaf>(); // flat Leaf store to help pick a random one
+	        Leaf root = new Leaf( 0, 0, 60, 120 ); //
+	        Leafs.add( root  ); //populate Leaf store with root area
+	        while( Leafs.size() < 19 ) { // this will give us 10 leaf areas
+	            int splitIdx = rnd.nextInt( Leafs.size() ); // choose a random element
+	            Leaf toSplit = Leafs.get( splitIdx); 
+	            if( toSplit.split() ) { //attempt to split
+	                Leafs.add( toSplit.leftChild );
+	                Leafs.add( toSplit.rightChild );
+	            } 
 
-		}
-		root.generateDungeon(); // generate dungeons
+	        }
+	        root.generateDungeon(); //generate dungeons
 
-	//	convert(dungeon, rectangles);
-		printDungeons(dungeon, rectangles);
-
+	        printDungeons(Leafs); //this is just to test the output
 	}
 
-	private void convert(Dungeon dungeon, ArrayList<Leaf> rectangles) {
+	private void convert(Dungeon dungeon, ArrayList<Leaf> Leafs) {
 
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
@@ -56,12 +53,12 @@ public class BSPGenerator {
 			}
 		}
 
-		Gdx.app.log(BSPGenerator.class.getSimpleName(), "Number of leafs created: " + rectangles.size());
+		Gdx.app.log(BSPGenerator.class.getSimpleName(), "Number of leafs created: " + Leafs.size());
 		int leafCount = 0;
-		for (int l = 0; l < rectangles.size(); l++) {
+		for (int l = 0; l < Leafs.size(); l++) {
 			// Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached room @ "
 			// + leaf.x + " " + leaf.y);
-			Leaf leaf = rectangles.get(l);
+			Leaf leaf = Leafs.get(l);
 			if (leaf.room == null) {
 				Gdx.app.log(BSPGenerator.class.getSimpleName(), "Reached leaf " + leafCount++);
 				continue;
@@ -87,40 +84,16 @@ public class BSPGenerator {
 
 	}
 
-private void printDungeons(Dungeon dungeon, ArrayList<Leaf> rectangles) {
-        byte [][] lines = new byte[dungeon.getxSize()][];
-        for( int i = 0; i < dungeon.getxSize(); i++ ) {
-            lines[ i ] = new byte[dungeon.getySize()];
-            for( int j = 0; j < dungeon.getySize(); j++ )
-                lines[ i ][ j ] =  -1;
-        }
-        byte dungeonCount = -1;
-        for( Leaf r : rectangles ) {
-            if( r.room == null )
-                continue;
-            Leaf d = r.room;
-            dungeonCount++;
-            for( int i = 0; i < d.height; i++ ) {
-                for( int j = 0; j < d.width; j++ )
-
-                    lines[ d.x + i ][ d.y + j ] = dungeonCount;
-            }
-        }
-        for( int i = 0; i < dungeon.getxSize(); i++ ) {
-            for( int j = 0; j < dungeon.getySize(); j++ ) {
-                if( lines[ i ][ j ] == -1 ){
-                    System.out.print( '.');
-					dungeon.setTile(i, j, dungeon.getTileSheet().VOID_1);
-                }
-                else{
-                    System.out.print( lines[ i ][ j ] );
-                   dungeon.setTile(i, j, dungeon.getTileSheet().FLOOR_1_1);
-                   dungeon.setCollision(leafWidth, leafHeight, true);
-
-             	}
-            }
-            System.out.println();
-        }
-    }
+	private void printDungeons(ArrayList<Leaf> leafs) {
+		for(Leaf l: leafs){
+			if(l.room != null){
+				for(int y = 0; y < l.height; y++){
+					for (int x = 0; x < l.width; x++){
+						dungeon.setTile(l.x+x, l.y+y, dungeon.getTileSheet().getFloor2());
+					}	
+				}
+			}
+		}
+	}
 
 }
