@@ -18,11 +18,13 @@ public class DesktopInputHandler implements InputProcessor {
 	Player player;
 	GUI gui;
 	OrthographicCamera camera;
+	float zoom = 1;
 
 	public DesktopInputHandler(GUI gui, Player player, OrthographicCamera camera) {
 		this.player = player;
 		this.gui = gui;
 		this.camera = camera;
+		zoom = camera.zoom;
 
 	}
 
@@ -118,7 +120,17 @@ public class DesktopInputHandler implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
+		if (amount > 0) {
+			zoom += 0.1f;
+		}
+
+		// Zoom in
+		if (amount < 0) {
+			zoom -= 0.1f;
+		}
+		camera.zoom = zoom;
+		camera.update();
+
 		return false;
 	}
 

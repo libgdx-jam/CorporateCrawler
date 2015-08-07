@@ -135,9 +135,9 @@ public class Dungeon {
 	public void printTileLayer(){
 		for(int i = 0; i < tileLayer.length; i++){
 			if (tileLayer[i] < 10)
-				System.out.print("0");
-			
-			System.out.print(tileLayer[i]+", ");
+				System.out.print("X ");
+			else
+			System.out.print("[]");
 			
 			if(i % 100 == 0)
 				System.out.print("\n");
