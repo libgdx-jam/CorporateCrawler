@@ -64,7 +64,7 @@ public class GameScreen implements Screen {
 		Dungeon dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
 		BSPGenerator generator = new BSPGenerator(dungeon);
 		generator.generateDungeon();
-	//	dungeon.autoTile();
+		dungeon.autoTile();
 		SaveMap.saveDungeon(dungeon, "test.tmx");
 
 		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
@@ -103,7 +103,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+		Gdx.gl.glClearColor(10000f, 1000f, 1000f, 1000f);
 
 		if (Gdx.app.getType() == ApplicationType.Desktop) {
 			desktop.update(delta);

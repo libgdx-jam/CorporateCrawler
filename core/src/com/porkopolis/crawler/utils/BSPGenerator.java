@@ -16,27 +16,27 @@ public class BSPGenerator {
 	}
 
 	public void generateDungeon() {
-	       ArrayList<Leaf> Leafs = new ArrayList<Leaf>(); // flat Leaf store to help pick a random one
-	       Leaf root = new Leaf( 0, 0, 100, 100 ); //
-	       Leafs.add( root  ); //populate Leaf store with root area
-	       while( Leafs.size() < 19 ) { // this will give us 10 leaf areas
-	           int splitIdx = rnd.nextInt( Leafs.size() ); // choose a random element
-	           Leaf toSplit = Leafs.get( splitIdx); 
-	           if( toSplit.split() ) { //attempt to split
-	               Leafs.add( toSplit.leftChild );
-	               Leafs.add( toSplit.rightChild );
-	           } 
+		ArrayList<Leaf> Leafs = new ArrayList<Leaf>(); // flat Leaf store to
+														// help pick a random
+														// one
+		Leaf root = new Leaf(0, 0, 99, 99); //
+		Leafs.add(root); // populate Leaf store with root area
+		while (Leafs.size() < 19) { // this will give us 10 leaf areas
+			int splitIdx = rnd.nextInt(Leafs.size()); // choose a random element
+			Leaf toSplit = Leafs.get(splitIdx);
+			if (toSplit.split()) { // attempt to split
+				Leafs.add(toSplit.leftChild);
+				Leafs.add(toSplit.rightChild);
+			}
 
-	       }
-	       root.generateDungeon(); //generate dungeons
-		 // convert(Leafs);
-		  // debug(dungeon, Leafs);
-	       printDungeons(Leafs); //this is just to test the output
-	      //test();
+		}
+		root.generateDungeon(); // generate dungeons
+		convert(Leafs);
+		printDungeons(Leafs); // this is just to test the output
+
 	}
 
 	private void debug(Dungeon dungeon, ArrayList<Leaf> Leafs) {
-
 		Gdx.app.log(BSPGenerator.class.getSimpleName(), "Number of leafs created: " + Leafs.size());
 		int leafCount = 0;
 		for (int l = 0; l < Leafs.size(); l++) {
@@ -54,7 +54,8 @@ public class BSPGenerator {
 
 				for (int leafWidth = roomLeaf.x; leafWidth < roomLeaf.width + roomLeaf.x; leafWidth++) {
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), "test");
-					Gdx.app.log(BSPGenerator.class.getSimpleName(), leafHeight + " " + leafWidth + " " + roomLeaf.toString());
+					Gdx.app.log(BSPGenerator.class.getSimpleName(),
+							leafHeight + " " + leafWidth + " " + roomLeaf.toString());
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), "Set collision @" + leafWidth + " " + leafHeight);
 
 				}
@@ -65,6 +66,7 @@ public class BSPGenerator {
 	}
 
 	private void convert(ArrayList<Leaf> leafs) {
+		// clear dungeon
 		for (int y = 0; y < dungeon.getySize(); y++) {
 			for (int x = 0; x < dungeon.getxSize(); x++) {
 
@@ -83,57 +85,49 @@ public class BSPGenerator {
 				dungeon.setCollision(x, y, false);
 			}
 		}
-		
-		for(Leaf l: leafs){
-			if(l.room != null){
-			for (int x = 0; x < l.room.width; x++){
-					for(int y = 0; y < l.room.height; y++){
-						dungeon.setTile(l.room.x+x, l.room.y+y, dungeon.getTileSheet().getFloor1());
-						System.out.println("Tile set at: "+ (l.room.x+x) + ", "+ (l.room.y+y));
-					}	
+		// Convert BSP to TMX
+		for (Leaf r : leafs) {
+			if (r.room == null)
+				continue;
+			Leaf d = r.room;
+			for (int j = 1; j < d.width; j++) {
+				for (int i = 1; i < d.height; i++) {
+					dungeon.setTile(d.x + i, d.y + j, dungeon.getTileSheet().getFloor1());
 				}
 			}
 		}
 	}
-	
-	 private void printDungeons(ArrayList<Leaf> leafs) {
-        byte [][] lines = new byte[100][];
-        for( int i = 0; i < 100; i++ ) {
-            lines[ i ] = new byte[100];
-            for( int j = 0; j < 100; j++ )
-                lines[ i ][ j ] =  -1;
-        }
-        byte dungeonCount = -1;
-        for( Leaf r : leafs ) {
-            if( r.room == null )
-                continue;
-            Leaf d = r.room;
-            dungeonCount++;
-           
-            for( int j = 0; j < d.width; j++ ){
-                for( int i = 0; i < d.height; i++ ) {
-					dungeon.setTile(d.x +i, d.y + j, dungeon.getTileSheet().getFloor1());
-					System.out.println(d.x +i + " " + d.y + j);
-                    lines[ d.y+ j ][ d.x + i ] = dungeonCount;
-                }
-            }
-        }
-        for( int i = 0; i < 100; i++ ) {
-            for( int j = 0; j < 100; j++ ) {
-                if( lines[ i ][ j ] == -1 )
-                    System.out.print( '.');
-                else
-                    System.out.print( lines[ i ][ j ] );
-            }
-            System.out.println();
-        }
-    }
-    
-	public void test(){
-		for(int x = 0; x <100;x++){
-			dungeon.setTile(x,x,dungeon.getTileSheet().getFloor1());
+
+	private void printDungeons(ArrayList<Leaf> leafs) {
+		byte[][] lines = new byte[100][];
+		for (int i = 0; i < 100; i++) {
+			lines[i] = new byte[100];
+			for (int j = 0; j < 100; j++)
+				lines[i][j] = -1;
+		}
+		byte dungeonCount = -1;
+		for (Leaf r : leafs) {
+			if (r.room == null)
+				continue;
+			Leaf d = r.room;
+			dungeonCount++;
+
+			for (int j = 0; j < d.width; j++) {
+				for (int i = 0; i < d.height; i++) {
+					System.out.println(d.x + i + " " + d.y + j);
+					lines[d.y + j][d.x + i] = dungeonCount;
+				}
+			}
+		}
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
+				if (lines[i][j] == -1)
+					System.out.print('.');
+				else
+					System.out.print(lines[i][j]);
+			}
+			System.out.println();
 		}
 	}
-	
-	
+
 }
