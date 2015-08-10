@@ -23,7 +23,7 @@ public class BSPGenerator {
 														// one
 		Leaf root = new Leaf(0, 0, 99, 99); //
 		Leafs.add(root); // populate Leaf store with root area
-		while (Leafs.size() < 19) { // this will give us 10 leaf areas
+		for (int x = 0; x < 156; x++) { // this will give us 10 leaf areas
 			int splitIdx = rnd.nextInt(Leafs.size()); // choose a random element
 			Leaf toSplit = Leafs.get(splitIdx);
 			if (toSplit.split()) { // attempt to split

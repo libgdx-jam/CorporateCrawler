@@ -1,11 +1,10 @@
 package com.porkopolis.crawler.generators;
 
-import java.util.Random;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Leaf {
 
-	private static int MIN_SIZE = 5;
-	private static Random rnd = new Random();
+	private static int MIN_SIZE = 8;
 
 	int x;
 	int y;
@@ -26,13 +25,13 @@ public class Leaf {
 	public boolean split() {
 		if (leftChild != null) // if already split, bail out
 			return false;
-		boolean horizontal = rnd.nextBoolean(); // direction of split
+		boolean horizontal = MathUtils.randomBoolean(); // direction of split
 		int max = (horizontal ? height : width) - MIN_SIZE; // maximum
 															// height/width we
 															// can split off
 		if (max <= MIN_SIZE) // area too small to split, bail out
 			return false;
-		int split = rnd.nextInt(max); // generate split point
+		int split = MathUtils.random(max); // generate split point
 		if (split < MIN_SIZE) // adjust split point so there's at least MIN_SIZE
 								// in both partitions
 			split = MIN_SIZE;
@@ -54,13 +53,20 @@ public class Leaf {
 			rightChild.generateDungeon();
 		} else { // if leaf node, create a dungeon within the minimum size
 					// constraints
-			int dungeonTop = (height - MIN_SIZE <= 0) ? 0 : rnd.nextInt(height - MIN_SIZE);
-			int dungeonLeft = (width - MIN_SIZE <= 0) ? 0 : rnd.nextInt(width - MIN_SIZE);
-			int dungeonHeight = Math.max(rnd.nextInt(height - dungeonTop), MIN_SIZE);
 
-			int dungeonWidth = Math.max(rnd.nextInt(width - dungeonLeft), MIN_SIZE);
+			boolean fillLeaf = true;
 
-			room = new Leaf(x + dungeonTop, y + dungeonLeft, dungeonWidth, dungeonHeight);
+			if (!fillLeaf) {
+				int dungeonTop = (height - MIN_SIZE <= 0) ? 0 : MathUtils.random(height - MIN_SIZE);
+				int dungeonLeft = (width - MIN_SIZE <= 0) ? 0 : MathUtils.random(width - MIN_SIZE);
+				int dungeonHeight = Math.max(MathUtils.random(height - dungeonTop), MIN_SIZE);
+
+				int dungeonWidth = Math.max(MathUtils.random(width - dungeonLeft), MIN_SIZE);
+
+				room = new Leaf(x + dungeonTop, y + dungeonLeft, dungeonWidth, dungeonHeight);
+			} else {
+				room = new Leaf(x, y, width, height);
+			}
 		}
 	}
 
