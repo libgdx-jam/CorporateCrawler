@@ -1,6 +1,8 @@
-package com.porkopolis.crawler.utils;
+package com.porkopolis.crawler.generators;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.porkopolis.crawler.utils.Dungeon;
+import com.porkopolis.crawler.utils.Tileset;
 
 public class DungeonGenerator {
 
@@ -210,7 +212,6 @@ public class DungeonGenerator {
 	private boolean makeRoom(int x, int y, int xlength, int ylength, int direction) {
 		int xlen = MathUtils.random(6, xlength);
 		int ylen = MathUtils.random(6, ylength);
-		Room room = new Room();
 
 		int dir = 0;
 		if (direction > 0 && direction < 4)
@@ -230,7 +231,6 @@ public class DungeonGenerator {
 			}
 
 			// At this point we will be making the room
-			room = new Room();
 
 			for (int ytemp = y; ytemp > (y - ylen); ytemp--) {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
@@ -256,7 +256,6 @@ public class DungeonGenerator {
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
 						dungeon.setTile(xtemp, ytemp, tileset.getFloor1());
-						room.addTile(xtemp, ytemp, tileset.getFloor1());
 					}
 				}
 			}
@@ -275,7 +274,6 @@ public class DungeonGenerator {
 			}
 
 			// At this point we will be making the room
-			room = new Room();
 
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
 				for (int xtemp = x; xtemp < (x + xlen); xtemp++) {
@@ -311,7 +309,6 @@ public class DungeonGenerator {
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
 						dungeon.setTile(xtemp, ytemp, tileset.getFloor2());
-						room.addTile(xtemp, ytemp, tileset.getFloor2());
 					}
 				}
 			}
@@ -331,7 +328,6 @@ public class DungeonGenerator {
 			}
 
 			// At this point we will be making the room
-			room = new Room();
 
 			for (int ytemp = y; ytemp < (y + ylen); ytemp++) {
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
@@ -357,7 +353,6 @@ public class DungeonGenerator {
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else {
 						dungeon.setTile(xtemp, ytemp, tileset.getFloor3());
-						room.addTile(xtemp, ytemp, tileset.getFloor3());
 					}
 				}
 			}
@@ -378,7 +373,6 @@ public class DungeonGenerator {
 			}
 
 			// At this point we will be making the room
-			room = new Room();
 
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
 				for (int xtemp = x; xtemp > (x - xlen); xtemp--) {
@@ -414,7 +408,6 @@ public class DungeonGenerator {
 						dungeon.setCollision(xtemp, ytemp, true);
 					} else
 						dungeon.setTile(xtemp, ytemp, tileset.getFloor4());
-					room.addTile(xtemp, ytemp, tileset.getFloor4());
 
 				}
 			}

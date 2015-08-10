@@ -1,9 +1,11 @@
-package com.porkopolis.crawler.utils;
+package com.porkopolis.crawler.generators;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.porkopolis.crawler.utils.Dungeon;
+import com.porkopolis.crawler.utils.Tileset;
 
 public class BSPGenerator {
 
