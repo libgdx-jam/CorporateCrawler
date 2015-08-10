@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.porkopolis.crawler.GameManager;
 import com.porkopolis.crawler.entitys.player.Player;
 import com.porkopolis.crawler.gui.GUI;
 
@@ -70,8 +69,7 @@ public class DesktopInputHandler implements InputProcessor {
 		}
 
 		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
-			player.getBody().applyForce(new Vector2(MathUtils.cos(player.getRotation()), MathUtils.sin(player.getRotation())),
-					player.getBody().getWorldCenter(), true);
+			player.getBody().applyForce(new Vector2(MathUtils.cos(player.getRotation()), MathUtils.sin(player.getRotation())), player.getBody().getWorldCenter(), true);
 		}
 
 		// End player controls

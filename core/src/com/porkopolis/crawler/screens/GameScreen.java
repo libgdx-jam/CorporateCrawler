@@ -1,8 +1,5 @@
 package com.porkopolis.crawler.screens;
 
-import box2dLight.ConeLight;
-import box2dLight.RayHandler;
-
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -29,6 +26,9 @@ import com.porkopolis.crawler.utils.BSPGenerator;
 import com.porkopolis.crawler.utils.Dungeon;
 import com.porkopolis.crawler.utils.MapBodyBuilder;
 import com.porkopolis.crawler.utils.SaveMap;
+
+import box2dLight.ConeLight;
+import box2dLight.RayHandler;
 
 public class GameScreen implements Screen {
 	private OrthographicCamera camera;
@@ -125,8 +125,7 @@ public class GameScreen implements Screen {
 			batch.setProjectionMatrix(camera.combined);
 			batch.begin();
 
-			batch.draw(Assets.player.reg, player.getBody().getPosition().x - 0.5f, player.getBody().getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f, 0.875f, 1, 1,
-					(player.getRotation()) * MathUtils.radDeg);
+			batch.draw(Assets.player.reg, player.getBody().getPosition().x - 0.5f, player.getBody().getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f, 0.875f, 1, 1, (player.getRotation()) * MathUtils.radDeg);
 			batch.end();
 		}
 

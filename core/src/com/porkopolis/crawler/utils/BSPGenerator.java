@@ -54,8 +54,7 @@ public class BSPGenerator {
 
 				for (int leafWidth = roomLeaf.x; leafWidth < roomLeaf.width + roomLeaf.x; leafWidth++) {
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), "test");
-					Gdx.app.log(BSPGenerator.class.getSimpleName(),
-							leafHeight + " " + leafWidth + " " + roomLeaf.toString());
+					Gdx.app.log(BSPGenerator.class.getSimpleName(), leafHeight + " " + leafWidth + " " + roomLeaf.toString());
 					Gdx.app.log(BSPGenerator.class.getSimpleName(), "Set collision @" + leafWidth + " " + leafHeight);
 
 				}

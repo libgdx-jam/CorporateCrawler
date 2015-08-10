@@ -25,7 +25,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 800;
 		config.height = 480;
-		config.disableAudio = true;
+		LwjglApplicationConfiguration.disableAudio = true;
 		// config.vSyncEnabled = LauncherConstants.VSYNC;
 		new LwjglApplication(new Main(), config);
 	}

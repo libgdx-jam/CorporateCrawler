@@ -45,6 +45,7 @@ public class Player implements Entity {
 
 	}
 
+	@Override
 	public Body getBody() {
 		return body;
 	}

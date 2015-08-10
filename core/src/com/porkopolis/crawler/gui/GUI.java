@@ -19,7 +19,7 @@ public class GUI {
 	public boolean debug = true;
 	private Label fpsLabel;
 	private int fps = 0;
-	
+
 	public Label playerPosLbl;
 
 	public GUI() {
@@ -34,7 +34,7 @@ public class GUI {
 		table.debug();
 
 		fpsLabel = new Label("fps" + fps, skin);
-		playerPosLbl = new Label("",skin);
+		playerPosLbl = new Label("", skin);
 
 		ImageButtonStyle imgBtnStyle = new ImageButtonStyle();
 		imgBtnStyle.up = skin.getDrawable("button");
@@ -72,8 +72,8 @@ public class GUI {
 			fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
 		else
 			fpsLabel.setText("       ");
-			
-			playerPosLbl.setText(player.getPosition().toString());
+
+		playerPosLbl.setText(player.getPosition().toString());
 	}
 
 	public Stage getStage() {

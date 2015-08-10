@@ -42,11 +42,11 @@ public class Dungeon {
 			System.out.println("Dungeon.setTile, Array out of bounds: " + coverTo1d(x, y) + " x: " + x + " y: " + y);
 		}
 	}
-	
+
 	public int coverTo1d(int x, int y) {
 		return x + (xSize * y);
 	}
-	
+
 	public boolean isFloor(int x, int y) {
 		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
 			if (getTile(x, y) >= t.FLOOR_1_1 && getTile(x, y) <= t.FLOOR_5_10)
