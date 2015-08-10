@@ -230,11 +230,7 @@ public class Dungeon {
 					setTile(x, y, t.BOTTOM_RIGHT_INSIDE);
 				}
 			}
-
-		}
-		// check for outside corrners
-		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % width;
+			//check for corner
 			if (x == 0)
 				y++;
 			if (isFloor(x, y)) {
@@ -258,6 +254,12 @@ public class Dungeon {
 				}
 			}
 
+		}
+		//Collision
+		for (int i = 0; i < tileLayer.length; i++) {
+			x = i % width;
+			if(isWall(x, y))
+				setCollision(x, y, true);
 		}
 	}
 
