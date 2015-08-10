@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,6 +29,7 @@ import com.porkopolis.crawler.utils.MapBodyBuilder;
 import com.porkopolis.crawler.utils.SaveMap;
 
 import box2dLight.ConeLight;
+import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 public class GameScreen implements Screen {
@@ -81,15 +83,16 @@ public class GameScreen implements Screen {
 		renderer = new Box2DDebugRenderer();
 		renderer.setDrawBodies(true);
 
-		// RayHandler.setGammaCorrection(true);
-		// RayHandler.useDiffuseLight(true);
+		 RayHandler.setGammaCorrection(true);
+		 RayHandler.useDiffuseLight(true);
 
 		rayHandler = new RayHandler(GameManager.getWorld());
 
 		rayHandler.setAmbientLight(0.5f, 0.5f, 0.5f, 0.2f);
-		// rayHandler.setShadows(false);
+		rayHandler.setShadows(true);
 		ConeLight light = new ConeLight(rayHandler, 128, null, 16f, 0, 0, 0f, player.getRotation());
 		light.attachToBody(player.getBody(), 0, 0, 0);
+		new PointLight(rayHandler, 20, new Color(1,1,1,1), 50, 10, 10);
 
 		input = new InputMultiplexer();
 		input.addProcessor(gui.getStage());

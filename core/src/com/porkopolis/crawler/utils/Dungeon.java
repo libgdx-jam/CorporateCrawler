@@ -233,8 +233,11 @@ public class Dungeon {
 
 		}
 		//Collision
+		y = 0;
 		for (int i = 0; i < tileLayer.length; i++) {
 			x = i % width;
+			if(x == 0)
+				y++;
 			if(isWall(x, y))
 				setCollision(x, y, true);
 		}
