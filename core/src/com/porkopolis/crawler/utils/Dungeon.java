@@ -203,13 +203,13 @@ public class Dungeon {
 			}
 		}
 
-		x = 0;
 		y = 0;
-		// check for inside corrners
+		// check for corners & fill collision 
 		for (int i = 0; i < tileLayer.length; i++) {
 			x = i % width;
 			if (x == 0)
 				y++;
+			// check for inside corners
 			if (isLeftWall(x, y)) {
 				if (isTopWall(x + 1, y)) {
 					setTile(x, y, t.TOP_LEFT_INSIDE);
@@ -228,29 +228,6 @@ public class Dungeon {
 			if (isRightWall(x, y)) {
 				if (isBottomWall(x - 1, y)) {
 					setTile(x, y, t.BOTTOM_RIGHT_INSIDE);
-				}
-			}
-			//check for corner
-			if (x == 0)
-				y++;
-			if (isFloor(x, y)) {
-				if (isTopWall(x, y - 1) && isLeftWall(x - 1, y)) {
-					setTile(x, y, t.TOP_LEFT_OUTSIDE);
-				}
-			}
-			if (isFloor(x, y)) {
-				if (isTopWall(x, y - 1) && isRightWall(x + 1, y)) {
-					setTile(x, y, t.TOP_RIGHT_OUTSIDE);
-				}
-			}
-			if (isFloor(x, y)) {
-				if (isBottomWall(x, y + 1) && isLeftWall(x - 1, y)) {
-					setTile(x, y, t.BOTTOM_LEFT_OUTSIDE);
-				}
-			}
-			if (isFloor(x, y)) {
-				if (isTopWall(x, y + 1) && isRightWall(x + 1, y)) {
-					setTile(x, y, t.BOTTOM_RIGHT_OUTSIDE);
 				}
 			}
 
