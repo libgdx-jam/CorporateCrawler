@@ -1,5 +1,9 @@
 package com.porkopolis.crawler.utils;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.math.Vector2;
+
 public class Dungeon {
 	private int[] tileLayer;
 	private boolean[] collisionLayer;
@@ -10,6 +14,8 @@ public class Dungeon {
 
 	private String tileSet;
 	private Tileset t = new Tileset();
+
+	public static ArrayList<Vector2> doors = new ArrayList<Vector2>(100);
 
 	public Dungeon(int xSize, int ySize, int objects, String tileSheet) {
 		this.tileSet = tileSheet;
@@ -203,13 +209,13 @@ public class Dungeon {
 			}
 		}
 
+		x = 0;
 		y = 0;
-		// check for corners & fill collision 
+		// check for inside corrners
 		for (int i = 0; i < tileLayer.length; i++) {
 			x = i % width;
 			if (x == 0)
 				y++;
-			// check for inside corners
 			if (isLeftWall(x, y)) {
 				if (isTopWall(x + 1, y)) {
 					setTile(x, y, t.TOP_LEFT_INSIDE);
@@ -232,11 +238,36 @@ public class Dungeon {
 			}
 
 		}
-		//Collision
+		// check for outside corrners
 		for (int i = 0; i < tileLayer.length; i++) {
 			x = i % width;
-			if(isWall(x, y))
-				setCollision(x, y, true);
+			if (x == 0)
+				y++;
+			if (isFloor(x, y)) {
+				if (isTopWall(x, y - 1) && isLeftWall(x - 1, y)) {
+					setTile(x, y, t.TOP_LEFT_OUTSIDE);
+				}
+			}
+			if (isFloor(x, y)) {
+				if (isTopWall(x, y - 1) && isRightWall(x + 1, y)) {
+					setTile(x, y, t.TOP_RIGHT_OUTSIDE);
+				}
+			}
+			if (isFloor(x, y)) {
+				if (isBottomWall(x, y + 1) && isLeftWall(x - 1, y)) {
+					setTile(x, y, t.BOTTOM_LEFT_OUTSIDE);
+				}
+			}
+			if (isFloor(x, y)) {
+				if (isTopWall(x, y + 1) && isRightWall(x + 1, y)) {
+					setTile(x, y, t.BOTTOM_RIGHT_OUTSIDE);
+				}
+			}
+
+		}
+
+		for (Vector2 room : doors) {
+			setTile((int) room.x, (int) room.y, t.DOOR);
 		}
 	}
 

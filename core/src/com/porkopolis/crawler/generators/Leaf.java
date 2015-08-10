@@ -1,10 +1,12 @@
 package com.porkopolis.crawler.generators;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.porkopolis.crawler.utils.Dungeon;
 
 public class Leaf {
 
-	private static int MIN_SIZE = 8;
+	private static int MIN_SIZE = 12;
 
 	int x;
 	int y;
@@ -14,6 +16,8 @@ public class Leaf {
 	Leaf leftChild;
 	Leaf rightChild;
 	Leaf room;
+
+	boolean isLinked = false;
 
 	public Leaf(int x, int y, int width, int height) {
 		this.x = x;
@@ -38,9 +42,12 @@ public class Leaf {
 		if (horizontal) { // populate child areas
 			leftChild = new Leaf(x, y, width, split);
 			rightChild = new Leaf(x + split, y, width, height - split);
+			Dungeon.doors.add(new Vector2(x, split));
 		} else {
 			leftChild = new Leaf(x, y, split, height);
 			rightChild = new Leaf(x, y + split, width - split, height);
+			Dungeon.doors.add(new Vector2(x, split));
+
 		}
 		return true; // split successful
 	}

@@ -21,7 +21,7 @@ public class BSPGenerator {
 		ArrayList<Leaf> Leafs = new ArrayList<Leaf>(); // flat Leaf store to
 														// help pick a random
 														// one
-		Leaf root = new Leaf(0, 0, 99, 99); //
+		Leaf root = new Leaf(1, 1, 97, 97); //
 		Leafs.add(root); // populate Leaf store with root area
 		for (int x = 0; x < 156; x++) { // this will give us 10 leaf areas
 			int splitIdx = rnd.nextInt(Leafs.size()); // choose a random element
