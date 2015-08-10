@@ -9,7 +9,7 @@ public class CreatePolyline {
 		int count = 0, x = 0, y = 0, poyStartX = 0, poyStartY = 0, id = 1;
 
 		for (int i = 0; i < dungeon.getCollisionLayer().length; i++) {
-			x = i % dungeon.getxSize();
+			x = i % dungeon.getWidth();
 			if (x == 0)
 				y++;
 

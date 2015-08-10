@@ -20,28 +20,28 @@ public class DungeonGenerator {
 		int validTile = -1;
 		int currentFeatures = 0;
 
-		for (int y = 0; y < dungeon.getySize(); y++) {
-			for (int x = 0; x < dungeon.getxSize(); x++) {
+		for (int y = 0; y < dungeon.getHeight(); y++) {
+			for (int x = 0; x < dungeon.getWidth(); x++) {
 				if (y == 0)
 					dungeon.setTile(x, y, tileset.VOID_2);
-				else if (y == dungeon.getySize() - 1)
+				else if (y == dungeon.getHeight() - 1)
 					dungeon.setTile(x, y, tileset.VOID_2);
 				else if (x == 0)
 					dungeon.setTile(x, y, tileset.VOID_2);
-				else if (x == dungeon.getxSize() - 1)
+				else if (x == dungeon.getWidth() - 1)
 					dungeon.setTile(x, y, tileset.VOID_2);
 				else
 					dungeon.setTile(x, y, tileset.VOID_1);
 			}
 		}
 
-		for (int y = 0; y < dungeon.getySize(); y++) {
-			for (int x = 0; x < dungeon.getxSize(); x++) {
+		for (int y = 0; y < dungeon.getHeight(); y++) {
+			for (int x = 0; x < dungeon.getWidth(); x++) {
 				dungeon.setCollision(x, y, false);
 			}
 		}
 
-		makeRoom(dungeon.getxSize() / 2, dungeon.getySize() / 2, 8, 6, MathUtils.random(0, 3));
+		makeRoom(dungeon.getWidth() / 2, dungeon.getHeight() / 2, 8, 6, MathUtils.random(0, 3));
 
 		currentFeatures = 1;
 
@@ -58,8 +58,8 @@ public class DungeonGenerator {
 
 			for (int testing = 0; testing < 1000; testing++) {
 
-				newx = MathUtils.random(1, dungeon.getxSize() - 1);
-				newy = MathUtils.random(1, dungeon.getySize() - 1);
+				newx = MathUtils.random(1, dungeon.getWidth() - 1);
+				newy = MathUtils.random(1, dungeon.getHeight() - 1);
 
 				validTile = -1;
 
@@ -220,10 +220,10 @@ public class DungeonGenerator {
 		switch (dir) {
 		case 0: // north
 			for (int ytemp = y; ytemp > (y - ylen); ytemp--) {
-				if (ytemp < 0 || ytemp > dungeon.getySize())
+				if (ytemp < 0 || ytemp > dungeon.getHeight())
 					return false;
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
-					if (xtemp < 0 || xtemp > dungeon.getxSize())
+					if (xtemp < 0 || xtemp > dungeon.getWidth())
 						return false;
 					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
@@ -263,10 +263,10 @@ public class DungeonGenerator {
 
 		case 1: // east
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
-				if (ytemp < 0 || ytemp > dungeon.getySize())
+				if (ytemp < 0 || ytemp > dungeon.getHeight())
 					return false;
 				for (int xtemp = x; xtemp < (x + xlen); xtemp++) {
-					if (xtemp < 0 || xtemp > dungeon.getxSize())
+					if (xtemp < 0 || xtemp > dungeon.getWidth())
 						return false;
 					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
@@ -317,10 +317,10 @@ public class DungeonGenerator {
 
 		case 2: // south
 			for (int ytemp = y; ytemp < (y + ylen); ytemp++) {
-				if (ytemp < 0 || ytemp > dungeon.getySize())
+				if (ytemp < 0 || ytemp > dungeon.getHeight())
 					return false;
 				for (int xtemp = (x - xlen / 2); xtemp < (x + (xlen + 1) / 2); xtemp++) {
-					if (xtemp < 0 || xtemp > dungeon.getxSize())
+					if (xtemp < 0 || xtemp > dungeon.getWidth())
 						return false;
 					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;
@@ -362,10 +362,10 @@ public class DungeonGenerator {
 		case 3: // west
 
 			for (int ytemp = (y - ylen / 2); ytemp < (y + (ylen + 1) / 2); ytemp++) {
-				if (ytemp < 0 || ytemp > dungeon.getySize())
+				if (ytemp < 0 || ytemp > dungeon.getHeight())
 					return false;
 				for (int xtemp = x; xtemp > (x - xlen); xtemp--) {
-					if (xtemp < 0 || xtemp > dungeon.getxSize())
+					if (xtemp < 0 || xtemp > dungeon.getWidth())
 						return false;
 					if (dungeon.getTile(xtemp, ytemp) != tileset.VOID_1)
 						return false;

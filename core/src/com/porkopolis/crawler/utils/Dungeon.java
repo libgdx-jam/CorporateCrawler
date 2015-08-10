@@ -4,8 +4,8 @@ public class Dungeon {
 	private int[] tileLayer;
 	private boolean[] collisionLayer;
 	private int[] entityLayer;
-	private int xSize;
-	private int ySize;
+	private int width;
+	private int height;
 	private int objects;
 
 	private String tileSet;
@@ -20,14 +20,14 @@ public class Dungeon {
 			this.objects = objects;
 
 		if (xSize < 3)
-			this.xSize = 3;
+			this.width = 3;
 		else
-			this.xSize = xSize;
+			this.width = xSize;
 
 		if (ySize < 3)
-			this.ySize = 3;
+			this.height = 3;
 		else
-			this.ySize = ySize;
+			this.height = ySize;
 
 		tileLayer = new int[xSize * ySize];
 		collisionLayer = new boolean[xSize * ySize];
@@ -36,7 +36,7 @@ public class Dungeon {
 	}
 
 	public void setTile(int x, int y, int celltype) {
-		if (coverTo1d(x, y) < xSize * ySize) {
+		if (coverTo1d(x, y) < width * height) {
 			tileLayer[coverTo1d(x, y)] = celltype;
 		} else {
 			System.out.println("Dungeon.setTile, Array out of bounds: " + coverTo1d(x, y) + " x: " + x + " y: " + y);
@@ -44,11 +44,11 @@ public class Dungeon {
 	}
 
 	public int coverTo1d(int x, int y) {
-		return x + (xSize * y);
+		return x + (width * y);
 	}
 
 	public boolean isFloor(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) >= t.FLOOR_1_1 && getTile(x, y) <= t.FLOOR_5_10)
 				return true;
 			else
@@ -58,7 +58,7 @@ public class Dungeon {
 	}
 
 	public boolean isWall(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) >= t.TOP_LEFT_INSIDE && getTile(x, y) <= t.BOTTOM_WALL_10)
 				return true;
 			else
@@ -68,7 +68,7 @@ public class Dungeon {
 	}
 
 	public boolean isTopWall(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) >= t.TOP_WALL_1 && getTile(x, y) <= t.TOP_WALL_10)
 				return true;
 			else
@@ -78,7 +78,7 @@ public class Dungeon {
 	}
 
 	public boolean isBottomWall(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) >= t.BOTTOM_WALL_1 && getTile(x, y) <= t.BOTTOM_WALL_10)
 				return true;
 			else
@@ -88,7 +88,7 @@ public class Dungeon {
 	}
 
 	public boolean isLeftWall(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) >= t.LEFT_WALL_1 && getTile(x, y) <= t.LEFT_WALL_10)
 				return true;
 			else
@@ -98,7 +98,7 @@ public class Dungeon {
 	}
 
 	public boolean isRightWall(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) >= t.RIGHT_WALL_1 && getTile(x, y) <= t.RIGHT_WALL_10)
 				return true;
 			else
@@ -108,7 +108,7 @@ public class Dungeon {
 	}
 
 	public boolean isVoid(int x, int y) {
-		if ((x > 0 && x < xSize) && (y > 0 && y < ySize)) {
+		if ((x > 0 && x < width) && (y > 0 && y < height)) {
 			if (getTile(x, y) == t.VOID_1 || getTile(x, y) == t.VOID_2 || getTile(x, y) == 0)
 				return true;
 			else
@@ -118,23 +118,23 @@ public class Dungeon {
 	}
 
 	public void setCollision(int x, int y, boolean i) {
-		collisionLayer[x + xSize * y] = i;
+		collisionLayer[x + width * y] = i;
 	}
 
 	public int getTile(int x, int y) {
-		return tileLayer[x + xSize * y];
+		return tileLayer[x + width * y];
 	}
 
 	public Tileset getTileSheet() {
 		return t;
 	}
 
-	public int getxSize() {
-		return xSize;
+	public int getWidth() {
+		return width;
 	}
 
-	public int getySize() {
-		return ySize;
+	public int getHeight() {
+		return height;
 	}
 
 	public int getObjects() {
@@ -178,7 +178,7 @@ public class Dungeon {
 
 		// check for wall
 		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % xSize;
+			x = i % width;
 			if (x == 0)
 				y++;
 			if (isFloor(x, y)) {// left wall
@@ -187,7 +187,7 @@ public class Dungeon {
 				}
 			}
 			if (isFloor(x, y)) {// right wall
-				if (isVoid(x + 1, y) || x + 1 > xSize) {
+				if (isVoid(x + 1, y) || x + 1 > width) {
 					setTile(x, y, t.getRightWall());
 				}
 			}
@@ -197,7 +197,7 @@ public class Dungeon {
 				}
 			}
 			if (isFloor(x, y)) {// bottom wall
-				if (isVoid(x, y + 1) || y + 1 > ySize) {
+				if (isVoid(x, y + 1) || y + 1 > height) {
 					setTile(x, y, t.getBottomWall());
 				}
 			}
@@ -207,7 +207,7 @@ public class Dungeon {
 		y = 0;
 		// check for inside corrners
 		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % xSize;
+			x = i % width;
 			if (x == 0)
 				y++;
 			if (isLeftWall(x, y)) {
@@ -234,7 +234,7 @@ public class Dungeon {
 		}
 		// check for outside corrners
 		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % xSize;
+			x = i % width;
 			if (x == 0)
 				y++;
 			if (isFloor(x, y)) {
