@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 
 public class Dungeon {
-	private int[] tileLayer;
-	private boolean[]collisionLayer;
-	private int[] entityLayer;
+	private int[][] tileLayer;
+	private boolean[][]collisionLayer;
+	private int[][] entityLayer;
 	private int width;
 	private int height;
 	private int objects;
@@ -18,7 +18,7 @@ public class Dungeon {
 	public static ArrayList<Vector2> doors = new ArrayList<Vector2>(100);
 	public static ArrayList<Vector2> center = new ArrayList<Vector2>();
 
-	public Dungeon(int xSize, int ySize, int objects, String tileSheet) {
+	public Dungeon(int width, int height, int objects, String tileSheet) {
 		this.tileSet = tileSheet;
 
 		if (objects < 1)
@@ -26,32 +26,28 @@ public class Dungeon {
 		else
 			this.objects = objects;
 
-		if (xSize < 3)
+		if (width < 3)
 			this.width = 3;
 		else
-			this.width = xSize;
+			this.width = width;
 
-		if (ySize < 3)
+		if (height < 3)
 			this.height = 3;
 		else
-			this.height = ySize;
+			this.height = height;
 
-		tileLayer = new int[xSize * ySize];
-		collisionLayer = new boolean[xSize * ySize];
-		entityLayer = new int[xSize * ySize];
+		tileLayer = new int[height][width];
+		collisionLayer = new boolean[height][width];
+		entityLayer = new int[height][width];
 
 	}
 
 	public void setTile(int x, int y, int celltype) {
 		if (x < width || y < height) {
-			tileLayer[coverTo1d(x, y)] = celltype;
+			tileLayer[y][x] = celltype;
 		} else {
-			System.out.println("Dungeon.setTile, Array out of bounds: " + coverTo1d(x, y) + " x: " + x + " y: " + y);
+			System.out.println("Dungeon.setTile, Array out of bounds");
 		}
-	}
-
-	public int coverTo1d(int x, int y) {
-		return x + (width * y);
 	}
 
 	public boolean isFloor(int x, int y) {
@@ -124,12 +120,8 @@ public class Dungeon {
 		return false;
 	}
 
-	public void setCollision(int x, int y, boolean i) {
-		collisionLayer[x + width * y] = i;
-	}
-
 	public int getTile(int x, int y) {
-		return tileLayer[x + width * y];
+		return tileLayer[y][x];
 	}
 
 	public Tileset getTileSheet() {
@@ -148,15 +140,18 @@ public class Dungeon {
 		return objects;
 	}
 
-	public int[] getTileLayer() {
+	public int[][] getTileLayer() {
 		return tileLayer;
 	}
 
-	public boolean[] getCollisionLayer() {
-		return collisionLayer;
+	public boolean getCollision(int x, int y) {
+		return collisionLayer[y][x];
+	}
+	public void setCollision(int x, int y, boolean i) {
+		 collisionLayer[y][x] = i;
 	}
 
-	public int[] getEntityLayer() {
+	public int[][] getEntityLayer() {
 		return entityLayer;
 	}
 
@@ -169,14 +164,14 @@ public class Dungeon {
 	}
 
 	public void printTileLayer() {
-		for (int i = 0; i < tileLayer.length; i++) {
-			if (tileLayer[i] < 10)
-				System.out.print(".");
-			else
-				System.out.print("1");
-
-			if (i % 100 == 0)
-				System.out.print("\n");
+		for (int y = 0; y < tileLayer.length; y++) {
+			for (int x = 0; x < tileLayer.length; x++) {
+				if (tileLayer[y][x] < 10)
+					System.out.print(".");
+				else
+					System.out.print("1");	
+			}
+			System.out.print("\n");
 		}
 	}
 
@@ -289,7 +284,7 @@ public class Dungeon {
 		}
 		//test for center of rooms
 		for(Vector2 c: center){
-				setTile((int)c.x, (int)c.y, t.VOID_2);
+			//	setTile((int)c.x, (int)c.y, t.VOID_2);
 		}
 	}
 }

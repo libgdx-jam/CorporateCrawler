@@ -36,7 +36,8 @@ public class BSPGenerator {
 		}
 		root.generateDungeon(); // generate dungeons
 		convert(Leafs);
-		printDungeons(Leafs); // this is just to test the output
+		//dungeon.printTileLayer();
+		//printDungeons(Leafs); // this is just to test the output
 
 	}
 
