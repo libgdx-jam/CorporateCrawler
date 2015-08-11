@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Dungeon {
 	private int[] tileLayer;
-	private boolean[] collisionLayer;
+	private boolean[]collisionLayer;
 	private int[] entityLayer;
 	private int width;
 	private int height;
@@ -43,7 +43,7 @@ public class Dungeon {
 	}
 
 	public void setTile(int x, int y, int celltype) {
-		if (coverTo1d(x, y) < width * height) {
+		if (x < width || y < height) {
 			tileLayer[coverTo1d(x, y)] = celltype;
 		} else {
 			System.out.println("Dungeon.setTile, Array out of bounds: " + coverTo1d(x, y) + " x: " + x + " y: " + y);
