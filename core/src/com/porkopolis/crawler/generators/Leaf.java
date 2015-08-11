@@ -42,13 +42,13 @@ public class Leaf {
 		if (horizontal) { // populate child areas
 			leftChild = new Leaf(x, y, width, split);
 			rightChild = new Leaf(x + split, y, width, height - split);
-			Dungeon.doors.add(new Vector2(x + MathUtils.random(split - 1), y));
+			Dungeon.doors.add(new Vector2(x + MathUtils.random(1, split - 1), y));
 		} else {
 			leftChild = new Leaf(x, y, split, height);
 			rightChild = new Leaf(x, y + split, width - split, height);
-			Dungeon.doors.add(new Vector2(x, y + MathUtils.random(split - 1)));
-
+			Dungeon.doors.add(new Vector2(x, y + MathUtils.random(1, split - 2)));
 		}
+		Dungeon.center.add(new Vector2(x+split/2, y+split/2));
 		return true; // split successful
 	}
 

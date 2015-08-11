@@ -16,6 +16,7 @@ public class Dungeon {
 	private Tileset t = new Tileset();
 
 	public static ArrayList<Vector2> doors = new ArrayList<Vector2>(100);
+	public static ArrayList<Vector2> center = new ArrayList<Vector2>;
 
 	public Dungeon(int xSize, int ySize, int objects, String tileSheet) {
 		this.tileSet = tileSheet;
@@ -252,6 +253,16 @@ public class Dungeon {
 		for (Vector2 room : doors) {
 			setTile((int) room.x, (int) room.y, t.DOOR);
 		}
-	}
 
+		if (y == 0) {
+			setTile(x, y, t.VOID_2);
+		} else if (y == getHeight() - 1) {
+			setTile(x, y, t.VOID_2);
+
+		} else if (x == 0) {
+			setTile(x, y, t.VOID_2);
+		} else if (x == getWidth() - 1) {
+			setTile(x, y, t.VOID_2);
+		}
+	}
 }

@@ -70,19 +70,7 @@ public class BSPGenerator {
 		// clear dungeon
 		for (int y = 0; y < dungeon.getHeight(); y++) {
 			for (int x = 0; x < dungeon.getWidth(); x++) {
-
-				if (y == 0) {
-					dungeon.setTile(x, y, tileset.VOID_2);
-				} else if (y == dungeon.getHeight() - 1) {
-					dungeon.setTile(x, y, tileset.VOID_2);
-
-				} else if (x == 0) {
-					dungeon.setTile(x, y, tileset.VOID_2);
-				} else if (x == dungeon.getWidth() - 1) {
-					dungeon.setTile(x, y, tileset.VOID_2);
-				} else {
-					dungeon.setTile(x, y, tileset.VOID_1);
-				}
+				dungeon.setTile(x, y, tileset.VOID_1);
 				dungeon.setCollision(x, y, false);
 			}
 		}
