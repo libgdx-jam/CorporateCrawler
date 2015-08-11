@@ -16,7 +16,7 @@ public class Dungeon {
 	private Tileset t = new Tileset();
 
 	public static ArrayList<Vector2> doors = new ArrayList<Vector2>(100);
-	public static ArrayList<Vector2> center = new ArrayList<Vector2>;
+	public static ArrayList<Vector2> center = new ArrayList<Vector2>();
 
 	public Dungeon(int xSize, int ySize, int objects, String tileSheet) {
 		this.tileSet = tileSheet;
