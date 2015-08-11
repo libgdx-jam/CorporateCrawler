@@ -75,6 +75,8 @@ public class GameScreen implements Screen {
 		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, GameManager.getWorld());
 		Vector2 start = new Vector2(50f, 50f);
 		player = new Player(start, GameManager.getWorld());
+		
+		Vector2 pos = new Vector2();
 
 		entityManager.getEntitys().add(player);
 

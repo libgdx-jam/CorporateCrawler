@@ -240,18 +240,31 @@ public class Dungeon {
 
 		}
 
-		//Collision
-		y = 0;
-		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % width;
-			if(x == 0)
-				y++;
-			if(isWall(x, y))
-				setCollision(x, y, true);
-		}
 
+
+		//Doors
 		for (Vector2 room : doors) {
 			setTile((int) room.x, (int) room.y, t.DOOR);
+			
+			if(isWall((int)room.x-1, (int)room.y) && isWall((int)room.x + 1, (int)room.y)){
+				setTile((int) room.x-1, (int) room.y, t.getFloor1());
+				setTile((int) room.x + 1, (int) room.y, t.getFloor1());
+				
+			}
+			
+			// if(isWall((int)room.x + 1, (int)room.y)){
+			// 	setTile((int) room.x + 1, (int) room.y, t.getFloor1());
+			// }
+			
+			if(isWall((int)room.x, (int)room.y + 1) && isWall((int)room.x, (int)room.y - 1)){
+				setTile((int) room.x, (int) room.y + 1, t.getFloor1());
+				setTile((int) room.x, (int) room.y - 1, t.getFloor1());
+
+			}
+			
+			// if(isWall((int)room.x, (int)room.y - 1)){
+			// 	setTile((int) room.x, (int) room.y - 1, t.getFloor1());
+			// }
 		}
 
 		if (y == 0) {
@@ -263,6 +276,20 @@ public class Dungeon {
 			setTile(x, y, t.VOID_2);
 		} else if (x == getWidth() - 1) {
 			setTile(x, y, t.VOID_2);
+		}
+		
+		//Collision
+		y = 0;
+		for (int i = 0; i < tileLayer.length; i++) {
+			x = i % width;
+			if(x == 0)
+				y++;
+			if(isWall(x, y))
+				setCollision(x, y, true);
+		}
+		//test for center of rooms
+		for(Vector2 c: center){
+				setTile((int)c.x, (int)c.y, t.VOID_2);
 		}
 	}
 }

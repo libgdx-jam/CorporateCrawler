@@ -6,22 +6,24 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.porkopolis.crawler.utils.Dungeon;
 import com.porkopolis.crawler.utils.Tileset;
+import com.badlogic.gdx.math.Vector2;
 
 public class BSPGenerator {
 
 	private Random rnd = new Random();
 	private Dungeon dungeon;
 	Tileset tileset = new Tileset();
+	public ArrayList<Leaf> Leafs;
 
 	public BSPGenerator(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}
 
 	public void generateDungeon() {
-		ArrayList<Leaf> Leafs = new ArrayList<Leaf>(); // flat Leaf store to
+		Leafs = new ArrayList<Leaf>(); // flat Leaf store to
 														// help pick a random
 														// one
-		Leaf root = new Leaf(1, 1, 97, 97); //
+		Leaf root = new Leaf(1, 1, 98, 98); //
 		Leafs.add(root); // populate Leaf store with root area
 		for (int x = 0; x < 156; x++) { // this will give us 10 leaf areas
 			int splitIdx = rnd.nextInt(Leafs.size()); // choose a random element
@@ -79,11 +81,14 @@ public class BSPGenerator {
 			if (r.room == null)
 				continue;
 			Leaf d = r.room;
+			dungeon.center.add(new Vector2(d.x + d.width/2, d.y + d.height /2));
 			for (int j = 1; j < d.width; j++) {
 				for (int i = 1; i < d.height; i++) {
 					dungeon.setTile(d.x + i, d.y + j, dungeon.getTileSheet().getFloor1());
+					
 				}
 			}
+		
 		}
 	}
 
