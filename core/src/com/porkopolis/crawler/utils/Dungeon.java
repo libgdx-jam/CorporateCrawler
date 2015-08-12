@@ -176,116 +176,77 @@ public class Dungeon {
 	}
 
 	public void autoTile() {
-		int x, y = 0;
-		System.out.println("balls");
-
-		// check for wall
-		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % width;
-			if (x == 0)
-				y++;
-			if (isFloor(x, y)) {// left wall
-				if (isVoid(x - 1, y) || x - 1 < 0) {
-					setTile(x, y, t.getLeftWall());
+		for (int y = 0; y < width; y++) {
+			for (int x = 0; x < height; x++) {
+				if (isFloor(x, y)) {// left wall
+					if (isVoid(x - 1, y) || x - 1 < 0) {
+						setTile(x, y, t.getLeftWall());
+					}
 				}
-			}
-			if (isFloor(x, y)) {// right wall
-				if (isVoid(x + 1, y) || x + 1 > width) {
-					setTile(x, y, t.getRightWall());
+				if (isFloor(x, y)) {// right wall
+					if (isVoid(x + 1, y) || x + 1 > width) {
+						setTile(x, y, t.getRightWall());
+					}
 				}
-			}
-			if (isFloor(x, y)) { // top wall
-				if (isVoid(x, y - 1) || y - 1 < 0) {
-					setTile(x, y, t.getTopWall());
+				if (isFloor(x, y)) { // top wall
+					if (isVoid(x, y - 1) || y - 1 < 0) {
+						setTile(x, y, t.getTopWall());
+					}
 				}
-			}
-			if (isFloor(x, y)) {// bottom wall
-				if (isVoid(x, y + 1) || y + 1 > height) {
-					setTile(x, y, t.getBottomWall());
+				if (isFloor(x, y)) {// bottom wall
+					if (isVoid(x, y + 1) || y + 1 > height) {
+						setTile(x, y, t.getBottomWall());
+					}
 				}
 			}
 		}
 
-		x = 0;
-		y = 0;
 		// check for inside corrners
-		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % width;
-			if (x == 0)
-				y++;
-			if (isLeftWall(x, y)) {
-				if (isTopWall(x + 1, y)) {
-					setTile(x, y, t.TOP_LEFT_INSIDE);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < height; x++) {
+				if (isLeftWall(x, y)) {
+					if (isTopWall(x + 1, y)) {
+						setTile(x, y, t.TOP_LEFT_INSIDE);
+					}
+				}
+				if (isLeftWall(x, y)) {
+					if (isBottomWall(x + 1, y)) {
+						setTile(x, y, t.BOTTOM_LEFT_INSIDE);
+					}
+				}
+				if (isRightWall(x, y)) {
+					if (isTopWall(x - 1, y)) {
+						setTile(x, y, t.TOP_RIGHT_INSIDE);
+					}
+				}
+				if (isRightWall(x, y)) {
+					if (isBottomWall(x - 1, y)) {
+						setTile(x, y, t.BOTTOM_RIGHT_INSIDE);
+					}
 				}
 			}
-			if (isLeftWall(x, y)) {
-				if (isBottomWall(x + 1, y)) {
-					setTile(x, y, t.BOTTOM_LEFT_INSIDE);
-				}
-			}
-			if (isRightWall(x, y)) {
-				if (isTopWall(x - 1, y)) {
-					setTile(x, y, t.TOP_RIGHT_INSIDE);
-				}
-			}
-			if (isRightWall(x, y)) {
-				if (isBottomWall(x - 1, y)) {
-					setTile(x, y, t.BOTTOM_RIGHT_INSIDE);
-				}
-			}
-
 		}
-
-
-
-		//Doors
-		for (Vector2 room : doors) {
-			setTile((int) room.x, (int) room.y, t.DOOR);
-			
-			if(isWall((int)room.x-1, (int)room.y) && isWall((int)room.x + 1, (int)room.y)){
-				setTile((int) room.x-1, (int) room.y, t.getFloor1());
-				setTile((int) room.x + 1, (int) room.y, t.getFloor1());
-				
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < height; x++) {
+				if (y == 0) {
+					setTile(x, y, t.VOID_2);
+				} else if (y == getHeight() - 1) {
+					setTile(x, y, t.VOID_2);
+		
+				} else if (x == 0) {
+					setTile(x, y, t.VOID_2);
+				} else if (x == getWidth() - 1) {
+					setTile(x, y, t.VOID_2);
+				}
 			}
-			
-			// if(isWall((int)room.x + 1, (int)room.y)){
-			// 	setTile((int) room.x + 1, (int) room.y, t.getFloor1());
-			// }
-			
-			if(isWall((int)room.x, (int)room.y + 1) && isWall((int)room.x, (int)room.y - 1)){
-				setTile((int) room.x, (int) room.y + 1, t.getFloor1());
-				setTile((int) room.x, (int) room.y - 1, t.getFloor1());
-
-			}
-			
-			// if(isWall((int)room.x, (int)room.y - 1)){
-			// 	setTile((int) room.x, (int) room.y - 1, t.getFloor1());
-			// }
-		}
-
-		if (y == 0) {
-			setTile(x, y, t.VOID_2);
-		} else if (y == getHeight() - 1) {
-			setTile(x, y, t.VOID_2);
-
-		} else if (x == 0) {
-			setTile(x, y, t.VOID_2);
-		} else if (x == getWidth() - 1) {
-			setTile(x, y, t.VOID_2);
 		}
 		
 		//Collision
-		y = 0;
-		for (int i = 0; i < tileLayer.length; i++) {
-			x = i % width;
-			if(x == 0)
-				y++;
-			if(isWall(x, y))
-				setCollision(x, y, true);
-		}
-		//test for center of rooms
-		for(Vector2 c: center){
-			//	setTile((int)c.x, (int)c.y, t.VOID_2);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < height; x++) {
+				if(isWall(x, y))
+					setCollision(x, y, true);
+			}
 		}
 	}
 }
