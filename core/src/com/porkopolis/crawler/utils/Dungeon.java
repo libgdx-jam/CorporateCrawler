@@ -43,7 +43,7 @@ public class Dungeon {
 	}
 
 	public void setTile(int x, int y, int celltype) {
-		if (x < width || y < height) {
+		if (x < width || y <= height) {
 			tileLayer[y][x] = celltype;
 		} else {
 			System.out.println("Dungeon.setTile, Array out of bounds");
@@ -226,6 +226,12 @@ public class Dungeon {
 				}
 			}
 		}
+		//set test tiles for centers just for testing
+		for(Vector2 i: center){
+			System.out.println(i.x+" "+i.y);
+			setTile((int)i.x,(int)i.y, t.VOID_1);
+		}
+		//boarders
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < height; x++) {
 				if (y == 0) {

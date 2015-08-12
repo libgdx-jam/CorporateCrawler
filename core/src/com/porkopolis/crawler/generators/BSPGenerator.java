@@ -37,7 +37,7 @@ public class BSPGenerator {
 		root.generateDungeon(); // generate dungeons
 		convert(Leafs);
 		//dungeon.printTileLayer();
-		printDungeons(Leafs); // this is just to test the output
+		//printDungeons(Leafs); // this is just to test the output
 
 	}
 
@@ -82,7 +82,7 @@ public class BSPGenerator {
 			if (r.room == null)
 				continue;
 			Leaf d = r.room;
-			dungeon.center.add(new Vector2(d.x + d.width/2, d.y + d.height /2));
+			dungeon.center.add(new Vector2(d.x, d.y));
 			for (int y = 1; y < d.width; y++) {
 				for (int x = 1; x < d.height; x++) {
 					dungeon.setTile(d.y + y, d.x + x, dungeon.getTileSheet().getFloor1());
