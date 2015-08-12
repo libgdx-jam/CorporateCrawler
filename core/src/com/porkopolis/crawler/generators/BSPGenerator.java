@@ -117,9 +117,9 @@ public class BSPGenerator {
 		for (int y = 0; y < dungeon.getHeight(); y++) {
 			for (int x = 0; x < dungeon.getHeight(); x++) {
 				if (lines[y][x] == -1)
-					System.out.print('.');
+					System.out.print("++");
 				else
-					System.out.print(lines[y][x]);
+					System.out.print(String.format("%03d", lines[y][x]));
 			}
 			System.out.println();
 		}
