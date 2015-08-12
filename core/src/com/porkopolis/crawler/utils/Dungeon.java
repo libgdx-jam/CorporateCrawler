@@ -177,6 +177,7 @@ public class Dungeon {
 
 	public void autoTile() {
 		int x, y = 0;
+		System.out.println("balls");
 
 		// check for wall
 		for (int i = 0; i < tileLayer.length; i++) {

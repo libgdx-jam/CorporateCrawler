@@ -37,7 +37,7 @@ public class BSPGenerator {
 		root.generateDungeon(); // generate dungeons
 		convert(Leafs);
 		//dungeon.printTileLayer();
-		//printDungeons(Leafs); // this is just to test the output
+		printDungeons(Leafs); // this is just to test the output
 
 	}
 
@@ -83,9 +83,9 @@ public class BSPGenerator {
 				continue;
 			Leaf d = r.room;
 			dungeon.center.add(new Vector2(d.x + d.width/2, d.y + d.height /2));
-			for (int j = 1; j < d.width; j++) {
-				for (int i = 1; i < d.height; i++) {
-					dungeon.setTile(d.x + i, d.y + j, dungeon.getTileSheet().getFloor1());
+			for (int y = 1; y < d.width; y++) {
+				for (int x = 1; x < d.height; x++) {
+					dungeon.setTile(d.y + y, d.x + x, dungeon.getTileSheet().getFloor1());
 					
 				}
 			}
@@ -94,11 +94,11 @@ public class BSPGenerator {
 	}
 
 	private void printDungeons(ArrayList<Leaf> leafs) {
-		byte[][] lines = new byte[100][];
-		for (int i = 0; i < 100; i++) {
-			lines[i] = new byte[100];
-			for (int j = 0; j < 100; j++)
-				lines[i][j] = -1;
+		byte[][] lines = new byte[dungeon.getHeight()][];
+		for (int y = 0; y < dungeon.getHeight(); y++) {
+			lines[y] = new byte[dungeon.getWidth()];
+			for (int x = 0; x < lines[y].length; x++)
+				lines[y][x] = -1;
 		}
 		byte dungeonCount = -1;
 		for (Leaf r : leafs) {
@@ -107,19 +107,19 @@ public class BSPGenerator {
 			Leaf d = r.room;
 			dungeonCount++;
 
-			for (int j = 0; j < d.width; j++) {
-				for (int i = 0; i < d.height; i++) {
-					System.out.println(d.x + i + " " + d.y + j);
-					lines[d.y + j][d.x + i] = dungeonCount;
+			for (int y = 0; y < d.width; y++) {
+				for (int x = 0; x < d.height; x++) {
+					System.out.println(d.x + x + " " + d.y + y);
+					lines[d.y + y][d.x + x] = dungeonCount;
 				}
 			}
 		}
-		for (int i = 0; i < 100; i++) {
-			for (int j = 0; j < 100; j++) {
-				if (lines[i][j] == -1)
+		for (int y = 0; y < dungeon.getHeight(); y++) {
+			for (int x = 0; x < dungeon.getHeight(); x++) {
+				if (lines[y][x] == -1)
 					System.out.print('.');
 				else
-					System.out.print(lines[i][j]);
+					System.out.print(lines[y][x]);
 			}
 			System.out.println();
 		}
