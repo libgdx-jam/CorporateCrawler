@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,12 +19,9 @@ import com.porkopolis.crawler.Assets;
 import com.porkopolis.crawler.EntityManager;
 import com.porkopolis.crawler.GameManager;
 import com.porkopolis.crawler.entitys.player.Player;
-import com.porkopolis.crawler.generators.BSPGenerator;
 import com.porkopolis.crawler.gui.GUI;
 import com.porkopolis.crawler.input.DesktopInputHandler;
-import com.porkopolis.crawler.utils.Dungeon;
 import com.porkopolis.crawler.utils.MapBodyBuilder;
-import com.porkopolis.crawler.utils.SaveMap;
 
 import box2dLight.ConeLight;
 import box2dLight.PointLight;
@@ -63,16 +58,6 @@ public class GameScreen implements Screen {
 		camera.translate(50, 50);
 		camera.update();
 
-		Dungeon dungeon = new Dungeon(100, 100, MathUtils.random(150, 200), "Office01.png");
-		BSPGenerator generator = new BSPGenerator(dungeon);
-		generator.generateDungeon();
-		dungeon.autoTile();
-		SaveMap.saveDungeon(dungeon, "test.tmx");
-
-		tiledMap = new TmxMapLoader().load("Maps/test.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 0.03125f);
-
-		Array<Body> bodies = MapBodyBuilder.buildShapes(tiledMap, 32, GameManager.getWorld());
 		Vector2 start = new Vector2(50f, 50f);
 		player = new Player(start, GameManager.getWorld());
 		
@@ -122,17 +107,11 @@ public class GameScreen implements Screen {
 		player.update(delta);
 		entityManager.update(delta);
 
-		tiledMapRenderer.setView(camera);
-		if (gui.debug != true)
-			tiledMapRenderer.render();
 
-		if (gui.debug == false) {
-			batch.setProjectionMatrix(camera.combined);
-			batch.begin();
-
-			batch.draw(Assets.player.reg, player.getBody().getPosition().x - 0.5f, player.getBody().getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f, 0.875f, 1, 1, (player.getRotation()) * MathUtils.radDeg);
-			batch.end();
-		}
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		batch.draw(Assets.player.reg, player.getBody().getPosition().x - 0.5f, player.getBody().getPosition().y - 0.5f, 0.5f, 0.5f, 1.78125f, 0.875f, 1, 1, (player.getRotation()) * MathUtils.radDeg);
+		batch.end();
 
 		rayHandler.setCombinedMatrix(camera);
 		rayHandler.render();
