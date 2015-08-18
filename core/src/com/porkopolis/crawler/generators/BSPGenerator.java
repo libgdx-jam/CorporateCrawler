@@ -19,14 +19,23 @@ public class BSPGenerator implements DungeonGenerator {
 		nodes.add(root);
 
 		for (int x = 0; x++ < 20;) {
-			Node toSplit = nodes.get(MathUtils.random(nodes.size));
+			Node toSplit = nodes.get(MathUtils.random(0, nodes.size - 1));
 			if (toSplit.split()) {
 				nodes.addAll(toSplit.getLeftChild(), toSplit.getRightChild());
 			}
 		}
 
 		for (Node node : nodes) {
+			node.split();
+		}
 
+		Array<Tile> nodeTiles = root.generate();
+
+		for (Tile tile : nodeTiles) {
+			tiles.put(new Location2(tile.getX(), tile.getY()), tile);
+		}
+
+		for (Node node : nodes) {
 		}
 	}
 

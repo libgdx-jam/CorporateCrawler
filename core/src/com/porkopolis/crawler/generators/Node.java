@@ -7,7 +7,7 @@ import com.porkopolis.crawler.dungeon.Tiles;
 
 public class Node {
 
-	private int minSize = 3;
+	private int minSize = 5;
 
 	private int x;
 	private int y;
@@ -38,8 +38,7 @@ public class Node {
 		boolean horizontal = MathUtils.randomBoolean();
 
 		// Pick a length between minimum size of one node and maximum
-		int split = horizontal ? MathUtils.random(minSize, width - minSize)
-				: MathUtils.random(minSize, height - minSize);
+		int split = horizontal ? MathUtils.random(minSize, width - minSize) : MathUtils.random(minSize, height - minSize);
 
 		if (horizontal) {
 			// Split vertically
@@ -59,14 +58,16 @@ public class Node {
 			Array<Tile> tiles = new Array<Tile>();
 			tiles.addAll(leftChild.generate());
 			tiles.addAll(rightChild.generate());
-			return null;
+			return tiles;
 		} else {
 
 			Array<Tile> tiles = new Array<Tile>();
 
 			for (int x2 = x; x2 < x + width; x2++) {
 				for (int y2 = y; y2 < y + height; y2++) {
-					tiles.add(new Tile(x2, y2, Tiles.VOID));
+					if (x2 == x || y2 == y || x2 == x + width - 1 || y2 == y + height - 1) {
+						tiles.add(new Tile(x2, y2, Tiles.VOID));
+					}
 				}
 			}
 			return tiles;
